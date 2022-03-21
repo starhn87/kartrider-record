@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { Global, css } from '@emotion/react'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 const global = css`
   :root {
@@ -31,7 +33,7 @@ const global = css`
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
-    background-color: white;
+    background-color: #fafafa;
   }
 
   a {
@@ -80,7 +82,9 @@ const global = css`
 ReactDOM.render(
   <React.StrictMode>
     <Global styles={global} />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 )
