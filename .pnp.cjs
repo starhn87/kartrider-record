@@ -49,6 +49,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.6.0"],\
             ["react", "npm:17.0.2"],\
             ["react-dom", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:17.0.2"],\
+            ["react-icons", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.3.1"],\
             ["react-query", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:3.34.16"],\
             ["react-redux", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:7.2.6"],\
             ["react-router-dom", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:6.2.2"],\
