@@ -4,11 +4,12 @@ import App from './App'
 import { Global, css } from '@emotion/react'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import 'chart.js/auto'
 
 const global = css`
   :root {
     --primary: #669cff;
-    --blue: #5e72e4;
+    --blue: #07f;
     --sky: #e0f0ff;
     --gray: #6c757d;
     --lighter: #e9ecef;
@@ -34,6 +35,7 @@ const global = css`
     -ms-user-select: none;
     -o-user-select: none;
     background-color: #fafafa;
+    color: #1f334a;
   }
 
   a {
