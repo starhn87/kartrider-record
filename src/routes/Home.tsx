@@ -1,67 +1,43 @@
-import styled from '@emotion/styled'
 import React, { Suspense, useState } from 'react'
-import SearchBar from '../components/SearchBar'
-import { useAppSelector } from '../redux/store'
+import styled from '@emotion/styled'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 import { useQuery } from 'react-query'
 import { searchApi } from '../api'
 import UserInfo from '../components/UserInfo'
 import { MdInfo } from 'react-icons/md'
 import Card from '../components/Card'
-import { Doughnut, Line } from 'react-chartjs-2'
-
-interface IMatch {
-  accountNo: string
-  matchId: string
-  matchType: string
-  teamId: string
-  character: string
-  startTime: string
-  endTime: string
-  channelName: string
-  trackId: string
-  playerCount: number
-  matchResult: string
-  seasonType: string
-  player: {
-    accountNo: string
-    characterName: string
-    character: string
-    kart: string
-    license: string
-    pet: string
-    flyingPet: string
-    partsEngine: string
-    partsHandle: string
-    partsWheel: string
-    partsKit: string
-    rankinggrade2: string
-    matchRank: string
-    matchRetired: string
-    matchWin: string
-    matchTime: string
-  }
-}
+import Loading from '../components/Loading'
+import Donut from '../components/Donut'
+import LineCard from '../components/LineCard'
+import TrackInfo from '../assets/track.json'
+import KarInfo from '../assets/kart.json'
+import { formatTime, subDate } from '../util'
+import Match from '../components/Match'
+import { IInfo, IMatch, IRecord } from '../interface'
+import { userId } from '../redux/slice'
 
 export default function Home() {
   const nickname = useAppSelector((state) => state.user.nickname)
+  const dispatch = useAppDispatch()
   const { data, isFetching } = useQuery(
     [nickname],
     () => searchApi.username(nickname),
     {
       staleTime: 60 * 1000,
-      // keepPreviousData: true,
     },
   )
 
   if (isFetching || !data) {
-    return <div>Loading...</div>
+    return <Loading />
   }
+
+  dispatch(userId(data.userInfo.accessId))
 
   let retireCnt = 0
   let winCnt = 0
   const ranks: number[] = []
   const matches: IMatch[] = data.data.matches[0].matches
-  console.log(matches)
+  const record: IRecord[] = []
 
   matches.forEach((match) => {
     if (match.player.matchRetired === '1') {
@@ -74,66 +50,46 @@ export default function Home() {
 
     const rank = Number(match.player.matchRank)
     ranks.unshift(rank >= 8 ? 8 : rank < 1 ? 1 : rank)
+
+    record.push({
+      matchId: match.matchId,
+      track: (TrackInfo.find((info) => info.id === match.trackId) as IInfo)
+        .name as string,
+      rank,
+      playerCount: match.playerCount,
+      kart: (KarInfo.find((info) => info.id === match.player.kart) as IInfo)
+        .name,
+      playTime: formatTime(Number(match.player.matchTime)),
+      timeDiff: subDate(match.endTime),
+      retired: match.player.matchRetired === '1',
+    })
   })
 
   const winRate = Math.round((winCnt / matches.length) * 100)
   const noRetiredRate = 100 - Math.round((retireCnt / matches.length) * 100)
 
   const winRateData = {
-    datasets: [
-      {
-        data: [winRate, 100 - winRate],
-        borderWidth: 2,
-        hoverBorderWidth: 3,
-        backgroundColor: ['rgba(1,119,255, 1)', 'rgba(235,235,235, 1)'],
-        fill: true,
-      },
-    ],
+    title: '승률',
+    data: [winRate, 100 - winRate],
+    backgroundColor: 'rgba(1,119,255, 1)',
   }
 
   const noRetiredData = {
-    datasets: [
-      {
-        data: [noRetiredRate, 100 - noRetiredRate],
-        borderWidth: 2,
-        hoverBorderWidth: 3,
-        backgroundColor: ['rgba(155,214,40, 1)', 'rgba(235,235,235, 1)'],
-        fill: true,
-      },
-    ],
+    title: '완주율',
+    data: [noRetiredRate, 100 - noRetiredRate],
+    backgroundColor: 'rgba(155,214,40, 1)',
   }
 
   const retiredData = {
-    datasets: [
-      {
-        data: [100 - noRetiredRate, noRetiredRate],
-        backgroundColor: ['rgba(246,36,88, 1)', 'rgba(235,235,235, 1)'],
-        fill: false,
-      },
-    ],
+    title: '리타이어율',
+    data: [100 - noRetiredRate, noRetiredRate],
+    backgroundColor: 'rgba(246,36,88, 1)',
   }
 
   const ranksPart = ranks.slice(
     ranks.length >= 50 ? ranks.length - 50 : 0,
     ranks.length,
   )
-
-  const rankData = {
-    labels: ranksPart,
-    datasets: [
-      {
-        data: ranksPart,
-        borderColor: 'rgba(1,119,255, 1)',
-        borderWidth: 1.5,
-        pointRadius: 1.5,
-        pointBorderColor: 'rgba(1,119,255, 1)',
-        pointColor: 'rgba(1,119,255, 1)',
-        fill: false,
-      },
-    ],
-  }
-
-  console.log(rankData)
 
   return (
     <Wrapper>
@@ -151,89 +107,24 @@ export default function Home() {
       <Container>
         <Card point="종합" title="전적">
           <ChartWrapper>
-            <div>
-              <p>승률</p>
-              <Doughnut
-                options={{
-                  responsive: false,
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                }}
-                data={winRateData}
-                width={83}
-                height={83}
-              />
-            </div>
-            <div>
-              <p>완주율</p>
-              <Doughnut
-                options={{
-                  responsive: false,
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                }}
-                data={noRetiredData}
-                width={83}
-                height={83}
-              />
-            </div>
-            <div>
-              <p>리타이어율</p>
-              <Doughnut
-                options={{
-                  responsive: false,
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                }}
-                data={retiredData}
-                width={83}
-                height={83}
-              />
-            </div>
+            <Donut {...winRateData} />
+            <Donut {...noRetiredData} />
+            <Donut {...retiredData} />
           </ChartWrapper>
         </Card>
         <Card point="순위변동" title="추이">
-          <div>
-            <Line
-              options={{
-                responsive: false,
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                },
-                layout: {
-                  padding: {
-                    top: 10,
-                    bottom: 10,
-                  },
-                },
-                scales: {
-                  x: {
-                    display: false,
-                  },
-                  y: {
-                    reverse: true,
-                    suggestedMin: 1,
-                    suggestedMax: 8,
-                  },
-                },
-              }}
-              data={rankData}
-            />
-          </div>
+          <LineCard data={ranksPart} />
         </Card>
         <Card point="응원" title="한마디" />
       </Container>
+      <Box>
+        <Record>1</Record>
+        <Record>
+          {record.map((match) => (
+            <Match key={match.matchId} data={match} />
+          ))}
+        </Record>
+      </Box>
     </Wrapper>
   )
 }
@@ -262,4 +153,16 @@ const Container = styled.div`
 const ChartWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+`
+
+const Box = styled.div`
+  display: grid;
+  margin-top: 20px;
+  grid-template-columns: 1fr 2fr;
+`
+
+const Record = styled.div`
+  :not(:last-child) {
+    margin-right: 10px;
+  }
 `

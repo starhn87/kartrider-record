@@ -1,13 +1,8 @@
 import styled from '@emotion/styled'
 import React from 'react'
+import { UserInfoProps } from '../interface'
 
-interface IUserInfo {
-  nickname: string
-  character: string
-  matchType: keyof typeof MATCH_TYPE
-}
-
-const MATCH_TYPE = {
+export const MATCH_TYPE = {
   '7b9f0fd5377c38514dbb78ebe63ac6c3b81009d5a31dd569d1cff8f005aa881a': '개인전',
   effd66758144a29868663aa50e85d3d95c5bc0147d7fdb9802691c2087f3416e: '팀전',
 }
@@ -16,7 +11,7 @@ export default function UserInfo({
   nickname,
   character,
   matchType,
-}: IUserInfo) {
+}: UserInfoProps) {
   const decodedType = MATCH_TYPE[matchType]
 
   return (
