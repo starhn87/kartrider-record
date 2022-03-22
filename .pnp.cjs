@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-redux", "npm:7.1.23"],\
             ["axios", "npm:0.26.1"],\
             ["chart.js", "npm:3.7.1"],\
+            ["date-fns", "npm:2.28.0"],\
             ["eslint-config-react-app", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:7.0.0"],\
             ["http-proxy-middleware", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:2.0.4"],\
             ["prettier", "npm:2.6.0"],\
@@ -7324,6 +7325,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["date-fns", [\
+        ["npm:2.28.0", {\
+          "packageLocation": "./.yarn/cache/date-fns-npm-2.28.0-c19c5add1b-a0516b2e4f.zip/node_modules/date-fns/",\
+          "packageDependencies": [\
+            ["date-fns", "npm:2.28.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["debug", [\
         ["npm:2.6.9", {\
           "packageLocation": "./.yarn/cache/debug-npm-2.6.9-7d4cb597dc-d2f51589ca.zip/node_modules/debug/",\
@@ -11991,6 +12001,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-redux", "npm:7.1.23"],\
             ["axios", "npm:0.26.1"],\
             ["chart.js", "npm:3.7.1"],\
+            ["date-fns", "npm:2.28.0"],\
             ["eslint-config-react-app", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:7.0.0"],\
             ["http-proxy-middleware", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:2.0.4"],\
             ["prettier", "npm:2.6.0"],\

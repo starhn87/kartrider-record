@@ -11,10 +11,6 @@ import { MdSearch } from 'react-icons/md'
 import { nickname } from '../redux/slice'
 import { useAppDispatch } from '../redux/store'
 
-interface ISearchBar {
-  onValueChange: Dispatch<SetStateAction<string>>
-}
-
 export default function SearchBar() {
   const [editingValue, setEditingValue] = useState('')
   const [focused, setFocused] = useState(false)

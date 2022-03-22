@@ -1,13 +1,8 @@
 import styled from '@emotion/styled'
 import React, { ReactNode } from 'react'
+import { CardProps } from '../interface'
 
-interface ICard {
-  title: string
-  point: string
-  children?: ReactNode
-}
-
-export default function Card({ title, point, children }: ICard) {
+export default function Card({ title, point, children }: CardProps) {
   return (
     <Wrapper>
       <Title>

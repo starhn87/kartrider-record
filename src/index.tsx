@@ -11,8 +11,9 @@ const global = css`
     --primary: #669cff;
     --blue: #07f;
     --sky: #e0f0ff;
-    --gray: #6c757d;
+    --gray: #a1a1a1;
     --lighter: #e9ecef;
+    --red: #f62459;
   }
 
   * {

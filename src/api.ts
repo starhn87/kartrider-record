@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { IPlayer } from './interface'
 
 const api = axios.create({
   baseURL: '/api',
@@ -24,5 +25,19 @@ export const searchApi = {
       userInfo,
       data,
     }
+  },
+}
+
+export const matchApi = {
+  detail: async (matchId: string) => {
+    const {
+      data: { players },
+    } = await api.get(`/matches/${matchId}`)
+
+    players.sort(
+      (a: IPlayer, b: IPlayer) => Number(a.matchRank) - Number(b.matchRank),
+    )
+
+    return players
   },
 }

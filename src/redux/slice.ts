@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface IUser {
-  id: number | null
+  id: string
   nickname: string
 }
 
 const initialState: IUser = {
-  id: null,
+  id: '',
   nickname: '',
 }
 
@@ -17,13 +17,12 @@ const user = createSlice({
     nickname: (state, action) => {
       state.nickname = action.payload
     },
-    userInfo: (state, action) => {
-      state.id = action.payload.id
-      state.nickname = action.payload.nickname
+    userId: (state, action) => {
+      state.id = action.payload
     },
   },
 })
 
-export const { userInfo, nickname } = user.actions
+export const { userId, nickname } = user.actions
 
 export default user.reducer
