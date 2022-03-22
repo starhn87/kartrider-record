@@ -45,9 +45,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", "npm:17.0.14"],\
             ["@types/react-redux", "npm:7.1.23"],\
             ["axios", "npm:0.26.1"],\
+            ["chart.js", "npm:3.7.1"],\
             ["eslint-config-react-app", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:7.0.0"],\
+            ["http-proxy-middleware", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:2.0.4"],\
             ["prettier", "npm:2.6.0"],\
             ["react", "npm:17.0.2"],\
+            ["react-chartjs-2", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.0.1"],\
             ["react-dom", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:17.0.2"],\
             ["react-icons", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.3.1"],\
             ["react-query", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:3.34.16"],\
@@ -6436,6 +6439,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["chart.js", [\
+        ["npm:3.7.1", {\
+          "packageLocation": "./.yarn/cache/chart.js-npm-3.7.1-d41a8d2375-f9d118d3b7.zip/node_modules/chart.js/",\
+          "packageDependencies": [\
+            ["chart.js", "npm:3.7.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["check-types", [\
         ["npm:11.1.2", {\
           "packageLocation": "./.yarn/cache/check-types-npm-11.1.2-67e85ffacd-6c339a5dfe.zip/node_modules/check-types/",\
@@ -9815,6 +9827,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/express"\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:2.0.4", {\
+          "packageLocation": "./.yarn/__virtual__/http-proxy-middleware-virtual-758f91150e/0/cache/http-proxy-middleware-npm-2.0.4-d210ef65f4-16d5b398a3.zip/node_modules/http-proxy-middleware/",\
+          "packageDependencies": [\
+            ["http-proxy-middleware", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:2.0.4"],\
+            ["@types/express", null],\
+            ["@types/http-proxy", "npm:1.17.8"],\
+            ["http-proxy", "npm:1.18.1"],\
+            ["is-glob", "npm:4.0.3"],\
+            ["is-plain-obj", "npm:3.0.0"],\
+            ["micromatch", "npm:4.0.4"]\
+          ],\
+          "packagePeers": [\
+            "@types/express"\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["https-proxy-agent", [\
@@ -11962,10 +11990,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", "npm:17.0.14"],\
             ["@types/react-redux", "npm:7.1.23"],\
             ["axios", "npm:0.26.1"],\
+            ["chart.js", "npm:3.7.1"],\
             ["eslint-config-react-app", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:7.0.0"],\
+            ["http-proxy-middleware", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:2.0.4"],\
             ["prettier", "npm:2.6.0"],\
             ["react", "npm:17.0.2"],\
+            ["react-chartjs-2", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.0.1"],\
             ["react-dom", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:17.0.2"],\
+            ["react-icons", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.3.1"],\
             ["react-query", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:3.34.16"],\
             ["react-redux", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:7.2.6"],\
             ["react-router-dom", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:6.2.2"],\
@@ -14528,6 +14560,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-chartjs-2", [\
+        ["npm:4.0.1", {\
+          "packageLocation": "./.yarn/cache/react-chartjs-2-npm-4.0.1-983e91d0ad-c22e994c73.zip/node_modules/react-chartjs-2/",\
+          "packageDependencies": [\
+            ["react-chartjs-2", "npm:4.0.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.0.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-chartjs-2-virtual-c469f59737/0/cache/react-chartjs-2-npm-4.0.1-983e91d0ad-c22e994c73.zip/node_modules/react-chartjs-2/",\
+          "packageDependencies": [\
+            ["react-chartjs-2", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.0.1"],\
+            ["@types/chart.js", null],\
+            ["@types/react", "npm:17.0.41"],\
+            ["chart.js", "npm:3.7.1"],\
+            ["react", "npm:17.0.2"]\
+          ],\
+          "packagePeers": [\
+            "@types/chart.js",\
+            "@types/react",\
+            "chart.js",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-dev-utils", [\
         ["npm:12.0.0", {\
           "packageLocation": "./.yarn/cache/react-dev-utils-npm-12.0.0-d1d89d289f-d3be371c8e.zip/node_modules/react-dev-utils/",\
@@ -14591,6 +14649,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-error-overlay-npm-6.0.10-3a2fed5ec4-e7384f086a.zip/node_modules/react-error-overlay/",\
           "packageDependencies": [\
             ["react-error-overlay", "npm:6.0.10"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-icons", [\
+        ["npm:4.3.1", {\
+          "packageLocation": "./.yarn/cache/react-icons-npm-4.3.1-46cb955834-2cc608acdd.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "npm:4.3.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.3.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-icons-virtual-0e8cdb4979/0/cache/react-icons-npm-4.3.1-46cb955834-2cc608acdd.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "virtual:7930539a61096ce5b091f179783f08533e2f140526c211465dd6cc65b1512fb568a7f12c1e622fef48b769a426688e80b5c596c85baba114b70adf49790f6f4a#npm:4.3.1"],\
+            ["@types/react", "npm:17.0.41"],\
+            ["react", "npm:17.0.2"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
