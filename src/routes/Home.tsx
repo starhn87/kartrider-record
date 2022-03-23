@@ -24,6 +24,7 @@ import {
 import { home } from '../redux/slice'
 import Tab from '../components/Tab'
 import { shallowEqual } from 'react-redux'
+import Cheer from '../components/Cheer'
 
 export default function Home() {
   const { nickname, gameType } = useAppSelector(
@@ -259,7 +260,9 @@ export default function Home() {
         <Card point="순위변동" title="추이">
           <LineCard data={ranksPart} />
         </Card>
-        <Card point="응원" title="한마디" />
+        <Card point="응원" title="한마디">
+          <Cheer />
+        </Card>
       </Container>
       <Box>
         <Record>
@@ -277,8 +280,8 @@ export default function Home() {
 
 const Wrapper = styled.div`
   width: 1000px;
-  min-width: 60rem;
   margin: auto;
+  padding-bottom: 100px;
 `
 
 const Info = styled.div`
