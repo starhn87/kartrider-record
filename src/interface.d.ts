@@ -51,6 +51,30 @@ export interface IRecord {
   retired: boolean
 }
 
+export interface IKartInfo {
+  id: string
+  map: ITrackRecord[]
+  name: string
+  count: number
+  winCount: number
+  retireCount: number
+}
+
+export interface ITrackRecord {
+  name: string
+  id: string
+  record: number
+}
+
+export interface ITrackInfo {
+  id: string
+  name: string
+  matchIds: string[]
+  count: number
+  winCount: number
+  min: number
+}
+
 export interface CardProps {
   title: string
   point: string
@@ -79,4 +103,20 @@ export interface UserInfoProps {
   nickname: string
   character: string
   matchType: keyof typeof MATCH_TYPE
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
+  ) => Promise<
+    QueryObserverResult<
+      {
+        userInfo: any
+        data: any
+      } | null,
+      unknown
+    >
+  >
+}
+
+export interface KartRecordProps {
+  onKartError: (e: SyntheticEvent<HTMLImageElement>) => void
+  onTrackError: (e: SyntheticEvent<HTMLImageElement>) => void
 }

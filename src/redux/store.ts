@@ -6,6 +6,10 @@ const store = configureStore({
   reducer: {
     user: slice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 export type AppState = ReturnType<typeof store.getState>

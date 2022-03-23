@@ -1,16 +1,14 @@
 import styled from '@emotion/styled'
-import React, { memo, Suspense, useState } from 'react'
+import React, { memo, useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
-import { matchApi } from '../api'
 import More from './More'
-import { IMatch, MatchProps } from '../interface'
+import { MatchProps } from '../interface'
 
 export default memo(function Match({ data }: MatchProps) {
   const [more, setMore] = useState(false)
 
-  const onClick = async (matchId: string) => {
+  const onClick = () => {
     setMore((prev) => !prev)
-    const match = await matchApi.detail(matchId)
   }
 
   return (
@@ -33,7 +31,7 @@ export default memo(function Match({ data }: MatchProps) {
         <Element className="kart">{data.kart}</Element>
         <Element className="time">{data.playTime}</Element>
         <Element
-          onClick={() => onClick(data.matchId)}
+          onClick={onClick}
           className={`open ${
             data.rank === 1 ? 'win' : data.retired ? 'retired' : ''
           }`}

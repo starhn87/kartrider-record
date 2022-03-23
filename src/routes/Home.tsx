@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { useQuery } from 'react-query'
@@ -10,16 +10,24 @@ import Loading from '../components/Loading'
 import Donut from '../components/Donut'
 import LineCard from '../components/LineCard'
 import TrackInfo from '../assets/track.json'
-import KarInfo from '../assets/kart.json'
+import KartInfo from '../assets/kart.json'
 import { formatTime, subDate } from '../util'
 import Match from '../components/Match'
-import { IInfo, IMatch, IRecord } from '../interface'
-import { userId } from '../redux/slice'
+import {
+  IInfo,
+  IKartInfo,
+  IMatch,
+  IRecord,
+  ITrackInfo,
+  ITrackRecord,
+} from '../interface'
+import { kart, track, userId } from '../redux/slice'
+import Tab from '../components/Tab'
 
 export default function Home() {
   const nickname = useAppSelector((state) => state.user.nickname)
   const dispatch = useAppDispatch()
-  const { data, isFetching } = useQuery(
+  const { data, isFetching, refetch } = useQuery(
     [nickname],
     () => searchApi.username(nickname),
     {
@@ -31,15 +39,20 @@ export default function Home() {
     return <Loading />
   }
 
-  dispatch(userId(data.userInfo.accessId))
-
   let retireCnt = 0
   let winCnt = 0
   const ranks: number[] = []
   const matches: IMatch[] = data.data.matches[0].matches
   const record: IRecord[] = []
+  const kartInfo = new Map<string, IKartInfo>()
+  const trackInfo = new Map<string, ITrackInfo>()
 
-  matches.forEach((match) => {
+  const calcThings = (
+    match: IMatch,
+    track: string,
+    rank: number,
+    kart: string,
+  ) => {
     if (match.player.matchRetired === '1') {
       retireCnt += 1
     }
@@ -48,22 +61,129 @@ export default function Home() {
       winCnt += 1
     }
 
-    const rank = Number(match.player.matchRank)
-    ranks.unshift(rank >= 8 ? 8 : rank < 1 ? 1 : rank)
-
     record.push({
       matchId: match.matchId,
-      track: (TrackInfo.find((info) => info.id === match.trackId) as IInfo)
-        .name as string,
+      track,
       rank,
       playerCount: match.playerCount,
-      kart: (KarInfo.find((info) => info.id === match.player.kart) as IInfo)
-        .name,
-      playTime: formatTime(Number(match.player.matchTime)),
+      kart,
+      playTime:
+        match.player.matchRetired === '1'
+          ? '-'
+          : formatTime(Number(match.player.matchTime)),
       timeDiff: subDate(match.endTime),
       retired: match.player.matchRetired === '1',
     })
+  }
+
+  const calcKart = (match: IMatch, kart: string, track: string) => {
+    let info: IKartInfo
+
+    if (kartInfo.has(kart)) {
+      info = kartInfo.get(kart) as IKartInfo
+    } else {
+      info = {
+        map: [],
+        id: '',
+        name: kart,
+        count: 0,
+        winCount: 0,
+        retireCount: 0,
+      }
+    }
+
+    info.id = match.player.kart
+    info.count += 1
+
+    if (match.player.matchRetired === '1') {
+      info.retireCount += 1
+    }
+
+    if (match.player.matchWin === '1') {
+      info.winCount += 1
+    }
+
+    const matchTime = Number(match.player.matchTime)
+
+    if (matchTime > 0) {
+      info.map.push({
+        name: track,
+        record: matchTime,
+        id: match.trackId,
+      })
+    }
+
+    kartInfo.set(kart, info)
+  }
+
+  const calcTrack = (match: IMatch, track: string) => {
+    let info: ITrackInfo
+
+    if (trackInfo.has(track)) {
+      info = trackInfo.get(track) as ITrackInfo
+    } else {
+      info = {
+        id: '',
+        name: track,
+        count: 0,
+        winCount: 0,
+        min: Number.MAX_SAFE_INTEGER,
+        matchIds: [],
+      }
+    }
+
+    info.id = match.trackId
+    info.count += 1
+    info.matchIds.push(match.matchId)
+
+    if (match.player.matchWin === '1') {
+      info.winCount += 1
+    }
+
+    const matchTime = Number(match.player.matchTime)
+
+    if (matchTime !== 0 && info.min > matchTime) {
+      info.min = matchTime
+    }
+
+    trackInfo.set(track, info)
+  }
+
+  matches.forEach((match) => {
+    const rank = Number(match.player.matchRank)
+    ranks.unshift(rank >= 8 ? 8 : rank < 1 ? 1 : rank)
+
+    const kart = (
+      KartInfo.find((info) => info.id === match.player.kart) as IInfo
+    ).name
+
+    const track = (TrackInfo.find((info) => info.id === match.trackId) as IInfo)
+      .name as string
+
+    calcThings(match, track, rank, kart)
+    calcKart(match, kart, track)
+    calcTrack(match, track)
   })
+
+  kartInfo.forEach((value) => {
+    value.map.sort((a: ITrackRecord, b: ITrackRecord) => a.record - b.record)
+
+    if (value.map.length > 4) {
+      value.map.splice(4, value.map.length)
+    }
+  })
+
+  const finalKartInfo = Array.from(kartInfo.values()).sort(
+    (a, b) => b.count - a.count,
+  )
+
+  const finalTrackInfo = Array.from(trackInfo.values()).sort(
+    (a, b) => b.count - a.count,
+  )
+
+  dispatch(userId(data.userInfo.accessId))
+  dispatch(kart(finalKartInfo))
+  dispatch(track(finalTrackInfo))
 
   const winRate = Math.round((winCnt / matches.length) * 100)
   const noRetiredRate = 100 - Math.round((retireCnt / matches.length) * 100)
@@ -100,9 +220,10 @@ export default function Home() {
         </span>
       </Info>
       <UserInfo
-        nickname={data.userInfo.name}
+        nickname={nickname}
         character={data.data.matches[0].matches[0].character}
         matchType={data.data.matches[0].matchType}
+        refetch={refetch}
       />
       <Container>
         <Card point="종합" title="전적">
@@ -118,7 +239,9 @@ export default function Home() {
         <Card point="응원" title="한마디" />
       </Container>
       <Box>
-        <Record>1</Record>
+        <Record>
+          <Tab />
+        </Record>
         <Record>
           {record.map((match) => (
             <Match key={match.matchId} data={match} />

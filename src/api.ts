@@ -16,7 +16,6 @@ export const searchApi = {
     }
 
     const userInfo = await (await api.get(`/users/nickname/${nickname}`)).data
-    console.log(userInfo)
     const { data } = await api.get(
       `/users/${userInfo.accessId}/matches?offset=0&limit=200`,
     )
