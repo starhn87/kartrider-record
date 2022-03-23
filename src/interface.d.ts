@@ -102,7 +102,6 @@ export interface MoreProps {
 export interface UserInfoProps {
   nickname: string
   character: string
-  matchType: keyof typeof MATCH_TYPE
   refetch: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
   ) => Promise<

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { KartRecordProps } from '../interface'
 import { useAppSelector } from '../redux/store'
 import KartInfo from '../assets/kart.json'
@@ -12,6 +12,10 @@ export default function KartRecord({
 }: KartRecordProps) {
   const kartInfo = useAppSelector((state) => state.user.kart)
   const [selected, setSelected] = useState(0)
+
+  useEffect(() => {
+    setSelected(0)
+  }, [kartInfo])
 
   return (
     <TabContent>
