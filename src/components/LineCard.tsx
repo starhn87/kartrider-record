@@ -1,9 +1,10 @@
+import styled from '@emotion/styled'
 import React from 'react'
 import { Line } from 'react-chartjs-2'
 import { LineCardProps } from '../interface'
 
 export default function LineCard({ data }: LineCardProps) {
-  const getData = () => ({
+  const chartData = {
     labels: data,
     datasets: [
       {
@@ -16,12 +17,13 @@ export default function LineCard({ data }: LineCardProps) {
         fill: false,
       },
     ],
-  })
+  }
 
   return (
-    <div>
+    <Wrapper>
       <Line
         options={{
+          maintainAspectRatio: false,
           responsive: false,
           plugins: {
             legend: {
@@ -30,8 +32,10 @@ export default function LineCard({ data }: LineCardProps) {
           },
           layout: {
             padding: {
-              top: 10,
-              bottom: 10,
+              top: 20,
+              bottom: 0,
+              right: 10,
+              left: 10,
             },
           },
           scales: {
@@ -45,8 +49,17 @@ export default function LineCard({ data }: LineCardProps) {
             },
           },
         }}
-        data={getData()}
+        data={chartData}
       />
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  canvas {
+    height: 210px !important;
+  }
+`

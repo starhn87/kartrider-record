@@ -203,18 +203,24 @@ export default function Home() {
     title: '승률',
     data: [winRate, 100 - winRate],
     backgroundColor: 'rgba(1,119,255, 1)',
+    text: `${winRate}%`,
+    textColor: 'rgba(1,119,255, 1)',
   }
 
   const noRetiredData = {
     title: '완주율',
     data: [noRetiredRate, 100 - noRetiredRate],
     backgroundColor: 'rgba(155,214,40, 1)',
+    text: `${noRetiredRate}%`,
+    textColor: 'rgba(155,214,40, 1)',
   }
 
   const retiredData = {
     title: '리타이어율',
     data: [100 - noRetiredRate, noRetiredRate],
     backgroundColor: 'rgba(246,36,88, 1)',
+    text: `${100 - noRetiredRate}%`,
+    textColor: 'rgba(246,36,88, 1)',
   }
 
   const ranksPart = ranks.slice(
@@ -238,10 +244,17 @@ export default function Home() {
       <Container>
         <Card point="종합" title="전적">
           <ChartWrapper>
-            <Donut {...winRateData} />
-            <Donut {...noRetiredData} />
-            <Donut {...retiredData} />
+            <>
+              <Donut {...winRateData} />
+              <Donut {...noRetiredData} />
+              <Donut {...retiredData} />
+            </>
           </ChartWrapper>
+          <Mode>
+            <ModeText className="blue">최다주행</ModeText>{' '}
+            <ModeText>모드</ModeText>
+            <ModeText className="rank">통합</ModeText>
+          </Mode>
         </Card>
         <Card point="순위변동" title="추이">
           <LineCard data={ranksPart} />
@@ -283,9 +296,15 @@ const Container = styled.div`
   justify-content: center;
   margin-top: 20px;
 `
+
+const CardSection = styled.section`
+  display: flex;
+`
+
 const ChartWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
 `
 
 const Box = styled.div`
@@ -297,5 +316,28 @@ const Box = styled.div`
 const Record = styled.div`
   :not(:last-child) {
     margin-right: 10px;
+  }
+`
+
+const Mode = styled.div`
+  position: relative;
+  margin: 8px;
+  padding: 8px;
+  border-top: 1px solid #f2f2f2;
+  line-height: 30px;
+`
+
+const ModeText = styled.span`
+  font-size: 14px;
+
+  &.blue {
+    color: var(--blue);
+  }
+
+  &.rank {
+    position: absolute;
+    right: 8px;
+    font-size: 20px;
+    font-weight: 500;
   }
 `
