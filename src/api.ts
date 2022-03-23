@@ -21,8 +21,6 @@ export const searchApi = {
       `/users/${userInfo.accessId}/matches?offset=0&limit=200&match_types=${gameType}`,
     )
 
-    console.log(data, 13123)
-
     return {
       userInfo,
       data,
