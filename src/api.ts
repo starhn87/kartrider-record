@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { IPlayer } from './interface'
+import { MATCH_TYPE } from './redux/slice'
 
 const api = axios.create({
   baseURL: '/api',
@@ -10,15 +11,17 @@ const api = axios.create({
 })
 
 export const searchApi = {
-  username: async (nickname: string) => {
+  username: async (nickname: string, gameType: keyof typeof MATCH_TYPE) => {
     if (nickname.trim() === '') {
       return null
     }
 
     const userInfo = await (await api.get(`/users/nickname/${nickname}`)).data
     const { data } = await api.get(
-      `/users/${userInfo.accessId}/matches?offset=0&limit=200`,
+      `/users/${userInfo.accessId}/matches?offset=0&limit=200&match_types=${gameType}`,
     )
+
+    console.log(data, 13123)
 
     return {
       userInfo,

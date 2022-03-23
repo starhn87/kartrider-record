@@ -21,15 +21,22 @@ import {
   ITrackInfo,
   ITrackRecord,
 } from '../interface'
-import { kart, track, userId } from '../redux/slice'
+import { home } from '../redux/slice'
 import Tab from '../components/Tab'
+import { shallowEqual } from 'react-redux'
 
 export default function Home() {
-  const nickname = useAppSelector((state) => state.user.nickname)
+  const { nickname, gameType } = useAppSelector(
+    (state) => ({
+      nickname: state.user.nickname,
+      gameType: state.user.gameType,
+    }),
+    shallowEqual,
+  )
   const dispatch = useAppDispatch()
   const { data, isFetching, refetch } = useQuery(
-    [nickname],
-    () => searchApi.username(nickname),
+    [nickname, gameType],
+    () => searchApi.username(nickname, gameType),
     {
       staleTime: 60 * 1000,
     },
@@ -181,9 +188,13 @@ export default function Home() {
     (a, b) => b.count - a.count,
   )
 
-  dispatch(userId(data.userInfo.accessId))
-  dispatch(kart(finalKartInfo))
-  dispatch(track(finalTrackInfo))
+  dispatch(
+    home({
+      id: data.userInfo.accessId,
+      kart: finalKartInfo,
+      track: finalTrackInfo,
+    }),
+  )
 
   const winRate = Math.round((winCnt / matches.length) * 100)
   const noRetiredRate = 100 - Math.round((retireCnt / matches.length) * 100)
@@ -222,7 +233,6 @@ export default function Home() {
       <UserInfo
         nickname={nickname}
         character={data.data.matches[0].matches[0].character}
-        matchType={data.data.matches[0].matchType}
         refetch={refetch}
       />
       <Container>

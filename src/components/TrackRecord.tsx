@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { ChangeEvent, memo, useState } from 'react'
+import React, { ChangeEvent, memo, useEffect, useState } from 'react'
 import { KartRecordProps } from '../interface'
 import { useAppSelector } from '../redux/store'
 import { formatTime } from '../util'
@@ -16,17 +16,21 @@ import {
   Tr,
 } from './KartRecord'
 
-export default memo(function TrackRecord({
+export default function TrackRecord({
   onTrackError,
 }: Pick<KartRecordProps, 'onTrackError'>) {
-  const trackInfo = useAppSelector((state) => state.user.track)
+  const { track: trackInfo } = useAppSelector((state) => state.user)
   const [selected, setSelected] = useState(0)
+
+  useEffect(() => {
+    setSelected(0)
+  }, [trackInfo])
 
   return (
     <TabContent>
-      <TabTitle>
+      {/* <TabTitle>
         <span>트랙</span> 전적
-      </TabTitle>
+      </TabTitle> */}
       {/* <TopContent>
         <TopTitle>
           {trackInfo[selected].name}
@@ -86,8 +90,4 @@ export default memo(function TrackRecord({
       </TableBox>
     </TabContent>
   )
-})
-
-const Dist = styled.span`
-  color: var(--gray);
-`
+}

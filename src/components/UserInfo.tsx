@@ -1,18 +1,26 @@
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { useState } from 'react'
 import { UserInfoProps } from '../interface'
+import { gameType, MATCH_TYPE } from '../redux/slice'
+import { useAppDispatch, useAppSelector } from '../redux/store'
+import { MdPerson, MdPeople } from 'react-icons/md'
 
-export const MATCH_TYPE = {
-  '7b9f0fd5377c38514dbb78ebe63ac6c3b81009d5a31dd569d1cff8f005aa881a': '개인전',
-  effd66758144a29868663aa50e85d3d95c5bc0147d7fdb9802691c2087f3416e: '팀전',
-}
+const ICONS = [<MdPerson />, <MdPeople />]
 
 export default function UserInfo({
   nickname,
   character,
-  matchType,
   refetch,
 }: UserInfoProps) {
+  const dispatch = useAppDispatch()
+  const matchType = useAppSelector((state) => state.user.gameType)
+  const [selected, setSelected] = useState(matchType)
+
+  const onClick = (key: keyof typeof MATCH_TYPE) => {
+    setSelected(key)
+    dispatch(gameType(key))
+  }
+
   return (
     <Wrapper>
       <Container>
@@ -23,11 +31,25 @@ export default function UserInfo({
         />
         <Box>
           <Name>{nickname}</Name>
-          <MatchTypeBox>
-            <MatchType className="active">개인전</MatchType>
-            <MatchType>팀전</MatchType>
-          </MatchTypeBox>
-          <Refresh onClick={() => refetch()}>전적 갱신</Refresh>
+          <Buttons>
+            <MatchTypeBox>
+              {Object.keys(MATCH_TYPE).map((key, index) => (
+                <MatchType
+                  key={key}
+                  className={`${selected === key ? 'active' : ''}`}
+                  onClick={() => onClick(key as keyof typeof MATCH_TYPE)}
+                >
+                  <ContentBox>
+                    <Icon>{ICONS[index]}</Icon>
+                    {MATCH_TYPE[key as keyof typeof MATCH_TYPE]}
+                  </ContentBox>
+                </MatchType>
+              ))}
+            </MatchTypeBox>
+            <ActionBox>
+              <Refresh onClick={() => refetch()}>전적 갱신</Refresh>
+            </ActionBox>
+          </Buttons>
         </Box>
       </Container>
     </Wrapper>
@@ -94,6 +116,41 @@ const MatchType = styled.button`
   }
 `
 
-const Refresh = styled.button`
+const ContentBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1px;
+`
+
+const Icon = styled.div`
+  font-size: 18px;
+  margin-right: 5px;
+`
+
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const ActionBox = styled.div`
+  position: relative;
   display: inline-block;
+  margin: 19px 10px 0 10px;
+`
+
+const Refresh = styled.span`
+  display: inline-block;
+  margin-right: 10px;
+  width: 82px;
+  line-height: 25px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  border: 0.7px solid var(--black);
+  border-radius: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
