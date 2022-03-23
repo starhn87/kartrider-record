@@ -21,7 +21,7 @@ const TAB_ITEMS = [
     key: 2,
     name: '카트',
     active: false,
-    to: '/body',
+    to: '/kart',
   },
   {
     key: 3,

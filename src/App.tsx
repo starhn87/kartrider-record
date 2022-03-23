@@ -5,6 +5,8 @@ import Header from './components/Header'
 import Home from './routes/Home'
 import Ranking from './routes/Ranking'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import Kart from './routes/Kart'
+import Track from './routes/Track'
 
 function App() {
   const queryClient = new QueryClient({
@@ -23,6 +25,8 @@ function App() {
           <Route path="/" element={<Template />}>
             <Route index element={<Home />} />
             <Route path="rank" element={<Ranking />} />
+            <Route path="kart" element={<Kart />} />
+            <Route path="track" element={<Track />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

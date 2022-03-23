@@ -85,6 +85,8 @@ export interface DonutProps {
   title: string
   data: number[]
   backgroundColor: string
+  text: string
+  textColor: string
 }
 
 export interface LineCardProps {
