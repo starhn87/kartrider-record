@@ -8,12 +8,10 @@ import 'chart.js/auto'
 
 const global = css`
   :root {
-    --primary: #669cff;
     --blue: #07f;
-    --sky: #e0f0ff;
     --gray: #a1a1a1;
-    --lighter: #e9ecef;
     --red: #f62459;
+    --black: #1f334a;
   }
 
   * {
@@ -26,6 +24,7 @@ const global = css`
     font-size: 62.5%;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    letter-spacing: -1px;
   }
 
   body {
@@ -36,7 +35,7 @@ const global = css`
     -ms-user-select: none;
     -o-user-select: none;
     background-color: #fafafa;
-    color: #1f334a;
+    color: var(--black);
   }
 
   a {

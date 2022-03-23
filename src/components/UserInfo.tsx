@@ -11,9 +11,8 @@ export default function UserInfo({
   nickname,
   character,
   matchType,
+  refetch,
 }: UserInfoProps) {
-  const decodedType = MATCH_TYPE[matchType]
-
   return (
     <Wrapper>
       <Container>
@@ -28,7 +27,7 @@ export default function UserInfo({
             <MatchType className="active">개인전</MatchType>
             <MatchType>팀전</MatchType>
           </MatchTypeBox>
-          <Refresh>전적 갱신</Refresh>
+          <Refresh onClick={() => refetch()}>전적 갱신</Refresh>
         </Box>
       </Container>
     </Wrapper>

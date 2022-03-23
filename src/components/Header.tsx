@@ -73,6 +73,7 @@ const Wrapper = styled.header`
   justify-content: center;
   align-items: center;
   background-color: #005fcc;
+  z-index: 99999;
 
   @media (max-width: 768px) {
   }

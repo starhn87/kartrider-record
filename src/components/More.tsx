@@ -9,7 +9,6 @@ import Loading from './Loading'
 
 export default function More({ matchId }: MoreProps) {
   const userId = useAppSelector((state) => state.user.id)
-  console.log(typeof userId, userId)
   const { data, isFetching } = useQuery(
     [matchId],
     () => matchApi.detail(matchId),
