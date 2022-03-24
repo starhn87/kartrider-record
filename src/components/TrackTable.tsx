@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, memo, SetStateAction } from 'react'
 import styled from '@emotion/styled'
 import { formatTime, onError } from '../util'
 import { v4 as uuid } from 'uuid'
@@ -40,7 +40,7 @@ const HEADERS: IHeaders[] = [
   },
 ]
 
-export default function TrackTable({
+export default memo(function TrackTable({
   tracks,
   totalCount,
   sort,
@@ -135,7 +135,7 @@ export default function TrackTable({
       </Tbody>
     </Table>
   )
-}
+})
 
 const Table = styled.table`
   width: 100%;

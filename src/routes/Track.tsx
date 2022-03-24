@@ -4,9 +4,9 @@ import { useQuery } from 'react-query'
 import { matchApi } from '../api'
 import Loading from '../components/Loading'
 import { PageWrapper } from './Home'
-import { formatTime, onError } from '../util'
 import TrackTable from '../components/TrackTable'
 import { ITrackDetail } from '../interface'
+import IndicatorGuide from '../components/IndicatorGuide'
 
 export interface ISort {
   standard: keyof ITrackDetail
@@ -22,6 +22,7 @@ export default function Track() {
     data?.tracks || [],
   )
   const [value, setValue] = useState('')
+  const [guide, setGuide] = useState(false)
   const [sort, setSort] = useState<ISort>({
     standard: 'count',
     seq: 'desc',
@@ -45,6 +46,7 @@ export default function Track() {
     const filteredTracks = data!.tracks.filter(
       (track) => track.bestRider.includes(value) || track.name.includes(value),
     )
+
     setTracks(filteredTracks)
   }
 
@@ -63,8 +65,11 @@ export default function Track() {
           </form>
           <Guide>
             스피드개인전 공방 기준 통계입니다.
-            <GuideButton>지표 가이드</GuideButton>
+            <GuideButton onClick={() => setGuide(true)}>
+              지표 가이드
+            </GuideButton>
           </Guide>
+          {guide && <IndicatorGuide onClose={() => setGuide(false)} />}
         </SearchBox>
         <TrackTable
           tracks={tracks}
