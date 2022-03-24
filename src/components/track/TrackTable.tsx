@@ -1,9 +1,9 @@
 import React, { Dispatch, memo, SetStateAction } from 'react'
 import styled from '@emotion/styled'
-import { formatTime, onError } from '../util'
+import { formatTime, onError } from '../../util'
 import { v4 as uuid } from 'uuid'
-import { ITrackDetail, ITrackRank } from '../interface'
-import { ISort } from '../routes/Track'
+import { ITrackDetail, ITrackRank } from '../../interface'
+import { ISort } from '../../routes/Track'
 
 interface TrackTableProps {
   tracks: ITrackDetail[] | undefined

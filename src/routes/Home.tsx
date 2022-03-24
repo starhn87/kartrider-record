@@ -3,18 +3,19 @@ import styled from '@emotion/styled'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { useQuery } from 'react-query'
 import { searchApi } from '../api'
-import UserInfo from '../components/UserInfo'
+import UserInfo from '../components/home/UserInfo'
 import { MdInfo } from 'react-icons/md'
-import Card from '../components/Card'
-import Loading from '../components/Loading'
-import Donut from '../components/Donut'
-import LineCard from '../components/LineCard'
-import Match from '../components/Match'
+import Card from '../components/home/Card'
+import Loading from '../components/common/Loading'
+import Donut from '../components/home/Donut'
+import LineCard from '../components/home/LineCard'
+import Match from '../components/home/Match'
 import { home, reset } from '../redux/slice'
-import Tab from '../components/Tab'
+import Tab from '../components/home/Tab'
 import { shallowEqual } from 'react-redux'
-import Cheer from '../components/Cheer'
-import Default from '../components/Default'
+import Cheer from '../components/home/Cheer'
+import Default from '../components/home/Default'
+import HelmetWrapper from '../components/common/Helmet'
 
 export default function Home() {
   const { nickname, gameType } = useAppSelector(
@@ -53,12 +54,14 @@ export default function Home() {
   if (isFetching) {
     return (
       <PageWrapper>
+        <HelmetWrapper content="홈 | TMI" />
         <Loading />
       </PageWrapper>
     )
   } else if (!data) {
     return (
       <DefaultPageWrapper>
+        <HelmetWrapper content="홈 | TMI" />
         <Default />
       </DefaultPageWrapper>
     )
@@ -66,6 +69,7 @@ export default function Home() {
 
   return (
     <PageWrapper>
+      <HelmetWrapper content="홈 | TMI" />
       <Info>
         <MdInfo style={{ marginRight: 5 }} />
         <span>

@@ -2,11 +2,15 @@ import styled from '@emotion/styled'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { matchApi } from '../api'
-import Loading from '../components/Loading'
+import Loading from '../components/common/Loading'
 import { PageWrapper } from './Home'
-import TrackTable from '../components/TrackTable'
+import TrackTable from '../components/track/TrackTable'
 import { ITrackDetail } from '../interface'
-import IndicatorGuide from '../components/IndicatorGuide'
+import IndicatorGuide from '../components/track/IndicatorGuide'
+import HelmetWrapper from '../components/common/Helmet'
+import { useAppDispatch } from '../redux/store'
+import { useNavigate } from 'react-router-dom'
+import { reset } from '../redux/slice'
 
 export interface ISort {
   standard: keyof ITrackDetail
@@ -14,10 +18,21 @@ export interface ISort {
 }
 
 export default function Track() {
-  const { data, isFetching } = useQuery(['all'], () => matchApi.all(), {
-    staleTime: 60 * 1000,
-    retry: false,
-  })
+  const dispatch = useAppDispatch()
+  const navigator = useNavigate()
+  const { data, isFetching, isError } = useQuery(
+    ['all'],
+    () => matchApi.all(),
+    {
+      staleTime: 60 * 1000,
+      retry: false,
+      onError: () => {
+        alert('에러가 발생하였습니다. 잠시 뒤 다시 시도해주세요.')
+        dispatch(reset())
+        navigator('/')
+      },
+    },
+  )
   const [tracks, setTracks] = useState<ITrackDetail[] | undefined>(
     data?.tracks || [],
   )
@@ -35,6 +50,7 @@ export default function Track() {
   if (isFetching || !data) {
     return (
       <PageWrapper>
+        <HelmetWrapper content="트랙 | TMI" />
         <Loading />
       </PageWrapper>
     )
@@ -56,6 +72,7 @@ export default function Track() {
 
   return (
     <Wrapper>
+      <HelmetWrapper content="트랙 | TMI" />
       <Title>스피드개인전 트랙 순위</Title>
       <Line />
       <Section>

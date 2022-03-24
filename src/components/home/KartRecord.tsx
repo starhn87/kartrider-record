@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { KartRecordProps } from '../interface'
-import { useAppSelector } from '../redux/store'
-import KartInfo from '../assets/kart.json'
-import { formatTime } from '../util'
-import Track from '../assets/track.json'
+import { KartRecordProps } from '../../interface'
+import { useAppSelector } from '../../redux/store'
+import KartInfo from '../../assets/kart.json'
+import { formatTime } from '../../util'
+import Track from '../../assets/track.json'
 
 export default function KartRecord({
   onTrackError,

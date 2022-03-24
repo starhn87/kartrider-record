@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import React, { memo, useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
 import More from './More'
-import { MatchProps } from '../interface'
+import { MatchProps } from '../../interface'
 
 export default memo(function Match({ data }: MatchProps) {
   const [more, setMore] = useState(false)

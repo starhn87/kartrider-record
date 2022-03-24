@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React, { ReactNode } from 'react'
-import { CardProps } from '../interface'
+import { CardProps } from '../../interface'
 
 export default function Card({ title, point, children }: CardProps) {
   return (

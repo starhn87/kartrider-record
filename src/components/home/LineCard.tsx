@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React from 'react'
 import { Line } from 'react-chartjs-2'
-import { LineCardProps } from '../interface'
+import { LineCardProps } from '../../interface'
 
 export default function LineCard({ data }: LineCardProps) {
   const chartData = {

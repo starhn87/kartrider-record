@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { Chart } from 'chart.js'
 import React, { useEffect } from 'react'
 import { Doughnut } from 'react-chartjs-2'
-import { DonutProps } from '../interface'
+import { DonutProps } from '../../interface'
 
 export default function Donut({
   title,

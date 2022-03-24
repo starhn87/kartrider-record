@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import React, { ChangeEvent, memo, useEffect, useState } from 'react'
-import { KartRecordProps } from '../interface'
-import { useAppSelector } from '../redux/store'
-import { formatTime } from '../util'
+import { KartRecordProps } from '../../interface'
+import { useAppSelector } from '../../redux/store'
+import { formatTime } from '../../util'
 import {
   TabContent,
   Table,
