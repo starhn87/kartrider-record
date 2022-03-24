@@ -53,7 +53,6 @@ export default function Cheer() {
 
       const sortedComments = Object.entries(comments)
         .sort(([, a], [, b]) => {
-          console.log(a.timestamp, b.timestamp)
           return b.timestamp - a.timestamp
         })
         .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
@@ -102,7 +101,6 @@ export default function Cheer() {
               setNickName(e.target.value)
 
               if (e.target.value.length > 1 && comment.length > 1) {
-                console.log('hi')
                 setIsReady(true)
               } else {
                 setIsReady(false)
@@ -119,7 +117,6 @@ export default function Cheer() {
               setComment(e.target.value)
 
               if (e.target.value.length > 1 && nickname.length > 1) {
-                console.log('hi')
                 setIsReady(true)
               } else {
                 setIsReady(false)

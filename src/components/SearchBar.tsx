@@ -4,8 +4,11 @@ import React, {
   Dispatch,
   SetStateAction,
   SyntheticEvent,
+  useRef,
   useState,
 } from 'react'
+
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import { MdSearch } from 'react-icons/md'
 import { nickname } from '../redux/slice'
@@ -15,6 +18,9 @@ export default function SearchBar() {
   const [editingValue, setEditingValue] = useState('')
   const [focused, setFocused] = useState(false)
   const dispatch = useAppDispatch()
+  const navigator = useNavigate()
+  const { pathname } = useLocation()
+  const searchRef = useRef<HTMLInputElement | null>(null)
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditingValue(e.target.value)
@@ -22,13 +28,20 @@ export default function SearchBar() {
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
+    setEditingValue('')
+    searchRef.current?.blur()
     dispatch(nickname(editingValue))
+
+    if (pathname !== '/') {
+      navigator('/')
+    }
   }
 
   return (
     <SearchBarWrapper className={focused ? 'active' : ''}>
       <Form onSubmit={onSubmit}>
         <Search
+          ref={searchRef}
           value={editingValue}
           onChange={onChange}
           type="text"

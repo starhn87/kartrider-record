@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import Template from './components/Template'
+import Layout from './components/Layout'
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './routes/Home'
@@ -22,7 +22,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Template />}>
+          <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="rank" element={<Ranking />} />
             <Route path="kart" element={<Kart />} />
