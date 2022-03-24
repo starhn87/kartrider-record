@@ -148,23 +148,24 @@ const List = styled.ul`
 `
 
 const Item = styled.li`
+  position: relative;
   display: flex;
   margin-right: 10px;
   align-items: center;
+  right: 0;
 
   &.fresh {
-    animation: showing 2s ease;
+    animation: showing 1s ease;
   }
 
   @keyframes showing {
-    0% {
+    from {
       opacity: 0;
+      right: -130px;
     }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
+    to {
       opacity: 1;
+      right: 0;
     }
   }
 `

@@ -1,19 +1,28 @@
 import styled from '@emotion/styled'
 import React, { SyntheticEvent } from 'react'
 import { useQuery } from 'react-query'
+import { useNavigate } from 'react-router-dom'
 import { matchApi } from '../../api'
 import { IPlayer, MoreProps } from '../../interface'
-import { useAppSelector } from '../../redux/store'
+import { reset } from '../../redux/slice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { formatTime, onError } from '../../util'
 import Loading from '../common/Loading'
 
 export default function More({ matchId }: MoreProps) {
   const userId = useAppSelector((state) => state.user.id)
+  const dispatch = useAppDispatch()
+  const navigator = useNavigate()
   const { data, isFetching } = useQuery(
     [matchId],
     () => matchApi.detail(matchId),
     {
       staleTime: 60 * 1000,
+      onError: () => {
+        alert('에러가 발생했습니다. 잠시 후 다시 시도해주세요.')
+        dispatch(reset())
+        navigator('/')
+      },
     },
   )
 
