@@ -2,9 +2,9 @@ import styled from '@emotion/styled'
 import React, { ChangeEvent, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { MdClear } from 'react-icons/md'
-import SearchBar from './SearchBar'
-import { useAppDispatch } from '../redux/store'
-import { reset } from '../redux/slice'
+import SearchBar from '../SearchBar'
+import { useAppDispatch } from '../../redux/store'
+import { reset } from '../../redux/slice'
 
 const TAB_ITEMS = [
   {

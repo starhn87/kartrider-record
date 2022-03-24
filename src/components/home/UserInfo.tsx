@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
-import { UserInfoProps } from '../interface'
-import { gameType, MATCH_TYPE } from '../redux/slice'
-import { useAppDispatch, useAppSelector } from '../redux/store'
+import { UserInfoProps } from '../../interface'
+import { gameType, MATCH_TYPE } from '../../redux/slice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { MdPerson, MdPeople } from 'react-icons/md'
 
 const ICONS = [<MdPerson />, <MdPeople />]

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
-import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react'
-import { nickname } from '../redux/slice'
-import { useAppDispatch } from '../redux/store'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { nickname } from '../../redux/slice'
+import { useAppDispatch } from '../../redux/store'
 
 export default function Default() {
   const [value, setValue] = useState('')

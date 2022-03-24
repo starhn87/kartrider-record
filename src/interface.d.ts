@@ -1,4 +1,4 @@
-import { MATCH_TYPE } from './components/UserInfo'
+import { MATCH_TYPE } from './components/home/UserInfo'
 
 export interface IInfo {
   id: string

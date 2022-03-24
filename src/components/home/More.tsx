@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 import React, { SyntheticEvent } from 'react'
 import { useQuery } from 'react-query'
-import { matchApi } from '../api'
-import { IPlayer, MoreProps } from '../interface'
-import { useAppSelector } from '../redux/store'
-import { formatTime, onError } from '../util'
-import Loading from './Loading'
+import { matchApi } from '../../api'
+import { IPlayer, MoreProps } from '../../interface'
+import { useAppSelector } from '../../redux/store'
+import { formatTime, onError } from '../../util'
+import Loading from '../common/Loading'
 
 export default function More({ matchId }: MoreProps) {
   const userId = useAppSelector((state) => state.user.id)
