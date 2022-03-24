@@ -75,6 +75,20 @@ export interface ITrackInfo {
   min: number
 }
 
+export interface ITrackRank {
+  totalCount: number
+  tracks: ITrackDetail[]
+}
+
+export interface ITrackDetail {
+  name: string
+  count: number
+  retireCount: number
+  bestRecord: number
+  bestRider: string
+  kartId: string
+}
+
 export interface CardProps {
   title: string
   point: string
