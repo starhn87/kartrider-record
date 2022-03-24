@@ -9,22 +9,12 @@ import Card from '../components/Card'
 import Loading from '../components/Loading'
 import Donut from '../components/Donut'
 import LineCard from '../components/LineCard'
-import TrackInfo from '../assets/track.json'
-import KartInfo from '../assets/kart.json'
-import { formatTime, subDate } from '../util'
 import Match from '../components/Match'
-import {
-  IInfo,
-  IKartInfo,
-  IMatch,
-  IRecord,
-  ITrackInfo,
-  ITrackRecord,
-} from '../interface'
-import { home } from '../redux/slice'
+import { home, reset } from '../redux/slice'
 import Tab from '../components/Tab'
 import { shallowEqual } from 'react-redux'
 import Cheer from '../components/Cheer'
+import Default from '../components/Default'
 
 export default function Home() {
   const { nickname, gameType } = useAppSelector(
@@ -40,194 +30,39 @@ export default function Home() {
     () => searchApi.username(nickname, gameType),
     {
       staleTime: 60 * 1000,
+      retry: false,
+      onError: (error) => {
+        dispatch(reset())
+        alert('에러가 발생하였습니다. 잠시 뒤 다시 시도해주세요.')
+      },
     },
   )
 
-  if (isFetching || !data) {
-    return <Loading />
+  useEffect(() => {
+    if (data) {
+      dispatch(
+        home({
+          id: data.userId,
+          kart: data.finalKartInfo,
+          track: data.finalTrackInfo,
+        }),
+      )
+    }
+  }, [data])
+
+  if (isFetching) {
+    return (
+      <PageWrapper>
+        <Loading />
+      </PageWrapper>
+    )
+  } else if (!data) {
+    return (
+      <DefaultPageWrapper>
+        <Default />
+      </DefaultPageWrapper>
+    )
   }
-
-  let retireCnt = 0
-  let winCnt = 0
-  const ranks: number[] = []
-  const record: IRecord[] = []
-  const kartInfo = new Map<string, IKartInfo>()
-  const trackInfo = new Map<string, ITrackInfo>()
-
-  const calcThings = (
-    match: IMatch,
-    track: string,
-    rank: number,
-    kart: string,
-  ) => {
-    if (match.player.matchRetired === '1') {
-      retireCnt += 1
-    }
-
-    if (match.player.matchWin === '1') {
-      winCnt += 1
-    }
-
-    record.push({
-      matchId: match.matchId,
-      track,
-      rank,
-      playerCount: match.playerCount,
-      kart,
-      playTime:
-        match.player.matchRetired === '1'
-          ? '-'
-          : formatTime(Number(match.player.matchTime)),
-      timeDiff: subDate(match.endTime),
-      retired: match.player.matchRetired === '1',
-    })
-  }
-
-  const calcKart = (match: IMatch, kart: string, track: string) => {
-    let info: IKartInfo
-
-    if (kartInfo.has(kart)) {
-      info = kartInfo.get(kart) as IKartInfo
-    } else {
-      info = {
-        map: [],
-        id: '',
-        name: kart,
-        count: 0,
-        winCount: 0,
-        retireCount: 0,
-      }
-    }
-
-    info.id = match.player.kart
-    info.count += 1
-
-    if (match.player.matchRetired === '1') {
-      info.retireCount += 1
-    }
-
-    if (match.player.matchWin === '1') {
-      info.winCount += 1
-    }
-
-    const matchTime = Number(match.player.matchTime)
-
-    if (matchTime > 0) {
-      info.map.push({
-        name: track,
-        record: matchTime,
-        id: match.trackId,
-      })
-    }
-
-    kartInfo.set(kart, info)
-  }
-
-  const calcTrack = (match: IMatch, track: string) => {
-    let info: ITrackInfo
-
-    if (trackInfo.has(track)) {
-      info = trackInfo.get(track) as ITrackInfo
-    } else {
-      info = {
-        id: '',
-        name: track,
-        count: 0,
-        winCount: 0,
-        min: Number.MAX_SAFE_INTEGER,
-        matchIds: [],
-      }
-    }
-
-    info.id = match.trackId
-    info.count += 1
-    info.matchIds.push(match.matchId)
-
-    if (match.player.matchWin === '1') {
-      info.winCount += 1
-    }
-
-    const matchTime = Number(match.player.matchTime)
-
-    if (matchTime !== 0 && info.min > matchTime) {
-      info.min = matchTime
-    }
-
-    trackInfo.set(track, info)
-  }
-
-  data.matches.forEach((match: IMatch) => {
-    const rank = Number(match.player.matchRank)
-    ranks.unshift(rank >= 8 ? 8 : rank < 1 ? 1 : rank)
-
-    const kart = (
-      KartInfo.find((info) => info.id === match.player.kart) as IInfo
-    ).name
-
-    const track = (TrackInfo.find((info) => info.id === match.trackId) as IInfo)
-      .name as string
-
-    calcThings(match, track, rank, kart)
-    calcKart(match, kart, track)
-    calcTrack(match, track)
-  })
-
-  kartInfo.forEach((value) => {
-    value.map.sort((a: ITrackRecord, b: ITrackRecord) => a.record - b.record)
-
-    if (value.map.length > 4) {
-      value.map.splice(4, value.map.length)
-    }
-  })
-
-  const finalKartInfo = Array.from(kartInfo.values()).sort(
-    (a, b) => b.count - a.count,
-  )
-
-  const finalTrackInfo = Array.from(trackInfo.values()).sort(
-    (a, b) => b.count - a.count,
-  )
-
-  dispatch(
-    home({
-      id: data.userInfo.accessId,
-      kart: finalKartInfo,
-      track: finalTrackInfo,
-    }),
-  )
-
-  const winRate = Math.round((winCnt / data.matches.length) * 100)
-  const noRetiredRate =
-    100 - Math.round((retireCnt / data.matches.length) * 100)
-
-  const winRateData = {
-    title: '승률',
-    data: [winRate, 100 - winRate],
-    backgroundColor: 'rgba(1,119,255, 1)',
-    text: `${winRate}%`,
-    textColor: 'rgba(1,119,255, 1)',
-  }
-
-  const noRetiredData = {
-    title: '완주율',
-    data: [noRetiredRate, 100 - noRetiredRate],
-    backgroundColor: 'rgba(155,214,40, 1)',
-    text: `${noRetiredRate}%`,
-    textColor: 'rgba(155,214,40, 1)',
-  }
-
-  const retiredData = {
-    title: '리타이어율',
-    data: [100 - noRetiredRate, noRetiredRate],
-    backgroundColor: 'rgba(246,36,88, 1)',
-    text: `${100 - noRetiredRate}%`,
-    textColor: 'rgba(246,36,88, 1)',
-  }
-
-  const ranksPart = ranks.slice(
-    ranks.length >= 50 ? ranks.length - 50 : 0,
-    ranks.length,
-  )
 
   return (
     <PageWrapper>
@@ -239,15 +74,15 @@ export default function Home() {
       </Info>
       <UserInfo
         nickname={nickname}
-        character={data.matches[0].character}
+        character={data.character}
         refetch={refetch}
       />
       <Container>
         <Card point="종합" title="전적">
           <ChartWrapper>
-            <Donut {...winRateData} />
-            <Donut {...noRetiredData} />
-            <Donut {...retiredData} />
+            <Donut {...data.winRateData} />
+            <Donut {...data.noRetiredData} />
+            <Donut {...data.retiredData} />
           </ChartWrapper>
           <Mode>
             <ModeText className="blue">최다주행</ModeText>{' '}
@@ -256,7 +91,7 @@ export default function Home() {
           </Mode>
         </Card>
         <Card point="순위변동" title="추이">
-          <LineCard data={ranksPart} />
+          <LineCard data={data.ranksPart} />
         </Card>
         <Card point="응원" title="한마디">
           <Cheer />
@@ -267,7 +102,7 @@ export default function Home() {
           <Tab />
         </Record>
         <Record>
-          {record.map((match) => (
+          {data.record.map((match) => (
             <Match key={match.matchId} data={match} />
           ))}
         </Record>
@@ -278,8 +113,18 @@ export default function Home() {
 
 export const PageWrapper = styled.div`
   width: 1000px;
+  min-height: 1000px;
   margin: auto;
   padding-bottom: 100px;
+
+  @media (min-width: 1630px) {
+    width: 1300px;
+  }
+`
+
+const DefaultPageWrapper = styled.div`
+  width: 100%;
+  min-width: 1300px;
 `
 
 const Info = styled.div`
@@ -296,10 +141,6 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   margin-top: 20px;
-`
-
-const CardSection = styled.section`
-  display: flex;
 `
 
 const ChartWrapper = styled.div`

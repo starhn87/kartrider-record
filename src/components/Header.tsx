@@ -3,6 +3,8 @@ import React, { ChangeEvent, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { MdClear } from 'react-icons/md'
 import SearchBar from './SearchBar'
+import { useAppDispatch } from '../redux/store'
+import { reset } from '../redux/slice'
 
 const TAB_ITEMS = [
   {
@@ -34,15 +36,21 @@ const TAB_ITEMS = [
 export default function Header() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const onClick = (pathname: string) => {
+    dispatch(reset())
     navigate(pathname)
   }
 
   return (
     <Wrapper>
       <Container>
-        <Logo src="https://tmi.nexon.com/img/assets/logo_kart.png" alt="로고" />
+        <Logo
+          src="https://tmi.nexon.com/img/assets/logo_kart.png"
+          alt="로고"
+          onClick={() => onClick('/')}
+        />
         <Sector>
           <Menu>
             {TAB_ITEMS.map((item) => (
@@ -68,6 +76,7 @@ export default function Header() {
 const Wrapper = styled.header`
   position: fixed;
   width: 100%;
+  min-width: 1000px;
   top: 0;
   display: flex;
   justify-content: center;
@@ -97,9 +106,9 @@ const Sector = styled.section`
 const Logo = styled.img`
   width: 7rem;
 
-  /* @media (max-width: 768px) {
-    display: none;
-  } */
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const Menu = styled.ul`

@@ -33,7 +33,11 @@ export default function Track() {
   }, [data])
 
   if (isFetching || !data) {
-    return <Loading />
+    return (
+      <PageWrapper>
+        <Loading />
+      </PageWrapper>
+    )
   }
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {

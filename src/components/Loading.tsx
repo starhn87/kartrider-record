@@ -17,7 +17,7 @@ const Ring = styled.div`
   transform: translate(-50%, -50%);
   width: 15rem;
   height: 15rem;
-  background: transparent;
+  /* background: transparent; */
   border: 1rem solid #23a2f7;
   border-radius: 50%;
   text-align: center;

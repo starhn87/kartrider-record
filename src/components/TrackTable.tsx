@@ -40,7 +40,7 @@ const HEADERS: IHeaders[] = [
   },
 ]
 
-export default memo(function TrackTable({
+export default function TrackTable({
   tracks,
   totalCount,
   sort,
@@ -135,7 +135,7 @@ export default memo(function TrackTable({
       </Tbody>
     </Table>
   )
-})
+}
 
 const Table = styled.table`
   width: 100%;

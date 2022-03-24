@@ -1,6 +1,11 @@
 import React from 'react'
 import NoItem from '../components/NoItem'
+import { PageWrapper } from './Home'
 
 export default function Ranking() {
-  return <NoItem />
+  return (
+    <PageWrapper>
+      <NoItem />
+    </PageWrapper>
+  )
 }
