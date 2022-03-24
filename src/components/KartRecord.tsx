@@ -118,7 +118,7 @@ export const TabTitle = styled.h5`
   margin-right: 20px;
   line-height: 40px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
   color: var(--black);
   vertical-align: middle;
 

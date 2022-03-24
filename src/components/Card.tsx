@@ -27,7 +27,7 @@ const Title = styled.h5`
   padding: 0 8px;
   line-height: 40px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
   border-bottom: 1px solid #ccc;
   color: #1f334a;
 `

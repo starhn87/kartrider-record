@@ -1,4 +1,5 @@
 import { differenceInDays, differenceInHours } from 'date-fns'
+import { SyntheticEvent } from 'react'
 
 export function formatTime(millisec: number) {
   const min = Math.floor(millisec / 1000 / 60)
@@ -19,4 +20,8 @@ export function subDate(standard: string) {
   }
 
   return `${hourDiff}시간 전`
+}
+
+export function onError(e: SyntheticEvent<HTMLImageElement>) {
+  e.currentTarget.src = 'https://tmi.nexon.com/img/assets/empty_kart.png'
 }

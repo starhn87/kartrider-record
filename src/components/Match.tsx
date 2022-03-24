@@ -87,7 +87,7 @@ const Element = styled.p`
     color: var(--gray);
     padding-left: 10px;
     font-size: 30px;
-    font-weight: 500;
+    font-weight: bold;
     font-style: italic;
     text-align: left;
 
@@ -118,7 +118,7 @@ const Element = styled.p`
 
   &.time {
     width: 100px;
-    font-weight: 500;
+    font-weight: bold;
     text-align: center;
   }
 
