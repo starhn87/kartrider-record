@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { matchApi } from '../api'
 import { IPlayer, MoreProps } from '../interface'
 import { useAppSelector } from '../redux/store'
-import { formatTime } from '../util'
+import { formatTime, onError } from '../util'
 import Loading from './Loading'
 
 export default function More({ matchId }: MoreProps) {
@@ -19,10 +19,6 @@ export default function More({ matchId }: MoreProps) {
 
   if (isFetching || !data) {
     return <Loading />
-  }
-
-  const onError = (e: SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = 'https://tmi.nexon.com/img/assets/empty_kart.png'
   }
 
   return (

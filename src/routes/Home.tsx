@@ -50,7 +50,6 @@ export default function Home() {
   let retireCnt = 0
   let winCnt = 0
   const ranks: number[] = []
-  const matches: IMatch[] = data.data.matches[0].matches
   const record: IRecord[] = []
   const kartInfo = new Map<string, IKartInfo>()
   const trackInfo = new Map<string, ITrackInfo>()
@@ -157,7 +156,7 @@ export default function Home() {
     trackInfo.set(track, info)
   }
 
-  matches.forEach((match) => {
+  data.matches.forEach((match: IMatch) => {
     const rank = Number(match.player.matchRank)
     ranks.unshift(rank >= 8 ? 8 : rank < 1 ? 1 : rank)
 
@@ -197,8 +196,9 @@ export default function Home() {
     }),
   )
 
-  const winRate = Math.round((winCnt / matches.length) * 100)
-  const noRetiredRate = 100 - Math.round((retireCnt / matches.length) * 100)
+  const winRate = Math.round((winCnt / data.matches.length) * 100)
+  const noRetiredRate =
+    100 - Math.round((retireCnt / data.matches.length) * 100)
 
   const winRateData = {
     title: '승률',
@@ -230,7 +230,7 @@ export default function Home() {
   )
 
   return (
-    <Wrapper>
+    <PageWrapper>
       <Info>
         <MdInfo style={{ marginRight: 5 }} />
         <span>
@@ -239,17 +239,15 @@ export default function Home() {
       </Info>
       <UserInfo
         nickname={nickname}
-        character={data.data.matches[0].matches[0].character}
+        character={data.matches[0].character}
         refetch={refetch}
       />
       <Container>
         <Card point="종합" title="전적">
           <ChartWrapper>
-            <>
-              <Donut {...winRateData} />
-              <Donut {...noRetiredData} />
-              <Donut {...retiredData} />
-            </>
+            <Donut {...winRateData} />
+            <Donut {...noRetiredData} />
+            <Donut {...retiredData} />
           </ChartWrapper>
           <Mode>
             <ModeText className="blue">최다주행</ModeText>{' '}
@@ -274,11 +272,11 @@ export default function Home() {
           ))}
         </Record>
       </Box>
-    </Wrapper>
+    </PageWrapper>
   )
 }
 
-const Wrapper = styled.div`
+export const PageWrapper = styled.div`
   width: 1000px;
   margin: auto;
   padding-bottom: 100px;
@@ -341,6 +339,6 @@ const ModeText = styled.span`
     position: absolute;
     right: 8px;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: bold;
   }
 `

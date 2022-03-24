@@ -18,7 +18,9 @@ export const searchApi = {
     }
 
     const userInfo = await (await api.get(`/users/nickname/${nickname}`)).data
-    const { data } = await api.get(`/users/${userInfo.accessId}/matches`, {
+    const {
+      data: { matches },
+    } = await api.get(`/users/${userInfo.accessId}/matches`, {
       params: {
         offset: 0,
         limit: 200,
@@ -28,7 +30,7 @@ export const searchApi = {
 
     return {
       userInfo,
-      data,
+      matches: matches[0].matches,
     }
   },
 }
@@ -36,10 +38,20 @@ export const searchApi = {
 export const matchApi = {
   all: async () => {
     const {
-      data: { matches },
+      data: { matches: matches1 },
     } = await api.get('/matches/all', {
       params: {
         offset: 0,
+        limit: 200,
+        match_types: Object.keys(MATCH_TYPE)[0],
+      },
+    })
+
+    const {
+      data: { matches: matches2 },
+    } = await api.get('/matches/all', {
+      params: {
+        offset: 200,
         limit: 200,
         match_types: Object.keys(MATCH_TYPE)[0],
       },
@@ -49,44 +61,46 @@ export const matchApi = {
     const trackMap = new Map<string, ITrackDetail>()
 
     await Promise.all(
-      matches[0].matches.map(async (matchId: string) => {
-        const { data } = await api.get(`/matches/${matchId}`)
-        const players = data.players
-        let info: ITrackDetail | undefined
+      [...matches1[0].matches, ...matches2[0].matches].map(
+        async (matchId: string) => {
+          const { data } = await api.get(`/matches/${matchId}`)
+          const players = data.players
+          let info: ITrackDetail | undefined
 
-        totalCount += players.length
+          totalCount += players.length
 
-        if (trackMap.has(data.trackId)) {
-          info = trackMap.get(data.trackId)
-        } else {
-          info = {
-            name: TrackInfo.find((track) => track.id === data.trackId)!.name,
-            count: 0,
-            retireCount: 0,
-            bestRecord: Number.MAX_SAFE_INTEGER,
-            bestRider: '',
-            kartId: '',
-          }
-        }
-
-        info!.count += players.length
-
-        players.forEach((player: IPlayer) => {
-          if (player.matchRetired === '1') {
-            info!.retireCount += 1
+          if (trackMap.has(data.trackId)) {
+            info = trackMap.get(data.trackId)
+          } else {
+            info = {
+              name: TrackInfo.find((track) => track.id === data.trackId)!.name,
+              count: 0,
+              retireCount: 0,
+              bestRecord: Number.MAX_SAFE_INTEGER,
+              bestRider: '',
+              kartId: '',
+            }
           }
 
-          const playTime = Number(player.matchTime)
+          info!.count += players.length
 
-          if (playTime > 0 && info!.bestRecord > playTime) {
-            info!.bestRecord = playTime
-            info!.bestRider = player.characterName
-            info!.kartId = player.kart
-          }
-        })
+          players.forEach((player: IPlayer) => {
+            if (player.matchRetired === '1') {
+              info!.retireCount += 1
+            }
 
-        trackMap.set(data.trackId, info!)
-      }),
+            const playTime = Number(player.matchTime)
+
+            if (playTime > 0 && info!.bestRecord > playTime) {
+              info!.bestRecord = playTime
+              info!.bestRider = player.characterName
+              info!.kartId = player.kart
+            }
+          })
+
+          trackMap.set(data.trackId, info!)
+        },
+      ),
     )
 
     return {
