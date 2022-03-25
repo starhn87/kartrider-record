@@ -45,8 +45,8 @@ const Box = styled.div`
 `
 
 const Logo = styled.img`
-  opacity: 0.3;
   width: 140px;
+  opacity: 0.3;
 `
 
 const Copy = styled.span`
@@ -65,8 +65,8 @@ const List = styled.ul`
 
 const Item = styled.li`
   margin-top: 10px;
-  padding-right: 10px;
   margin-right: 10px;
+  padding-right: 10px;
   font-weight: 400;
 `
 

@@ -75,6 +75,10 @@ export default function Track() {
       <HelmetWrapper content="트랙 | TMI" />
       <Title>스피드개인전 트랙 순위</Title>
       <Line />
+      <SubTitle>
+        <span>순위 산정기간:</span>
+        현재 날짜 기준
+      </SubTitle>
       <Section>
         <SearchBox>
           <form>
@@ -108,22 +112,35 @@ const Wrapper = styled(PageWrapper)`
 `
 
 const Title = styled.h1`
+  margin-bottom: 10px;
+  padding-left: 10px;
   font-size: 22px;
   font-weight: 400;
-  padding-left: 10px;
-  margin-bottom: 10px;
 `
 
 const Line = styled.div`
   display: inline-block;
-  vertical-align: top;
-  margin-left: 10px;
   width: 35px;
   height: 3px;
+  margin-left: 10px;
+  vertical-align: top;
   background-color: #1f334a;
 `
 
+const SubTitle = styled.p`
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--black);
+
+  span {
+    margin-right: 5px;
+    font-weight: bold;
+  }
+`
+
 const Section = styled.div`
+  margin-top: 30px;
   background-color: white;
 `
 
@@ -146,6 +163,7 @@ const Guide = styled.span`
 const GuideButton = styled.button`
   display: inline-block;
   width: 70px;
+  margin-left: 15px;
   font-size: 12px;
   text-align: center;
   text-decoration: none;
@@ -153,7 +171,6 @@ const GuideButton = styled.button`
   background-color: transparent;
   line-height: 20px;
   border: 1px solid var(--blue);
-  margin-left: 15px;
 
   &:hover {
     color: white;
@@ -162,12 +179,12 @@ const GuideButton = styled.button`
 `
 
 const Search = styled.input`
-  box-sizing: border-box;
   display: inline-block;
-  height: 36px;
   width: 241px;
+  height: 36px;
   padding: 0 10px;
+  box-sizing: border-box;
   font-size: 14px;
   outline: none;
-  border: 1px solid #ccc;
+  border: 1px sßolid #ccc;
 `

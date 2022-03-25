@@ -89,6 +89,8 @@ export default memo(function TrackTable({
   }
 
   useEffect(() => {
+    setPage(1)
+
     const footer = document.querySelector('footer')
     let observer: IntersectionObserver
 
@@ -202,17 +204,17 @@ const Th = styled.th`
       content: '';
       position: absolute;
       display: inline-block;
-      top: 18px;
-      right: 0;
       width: 1px;
       height: 30px;
+      top: 18px;
+      right: 0;
       background-color: #ccc;
     }
   }
 
   :first-of-type {
-    width: 3vw;
     overflow: hidden;
+    width: 3vw;
     white-space: nowrap;
   }
 `
@@ -281,10 +283,10 @@ const ThBox = styled.div`
 `
 
 const Sort = styled.span`
-  background: url('https://tmi.nexon.com/img/btn_none.svg') no-repeat 0 0;
   display: inline-block;
   height: 17px;
   width: 10px;
+  background: url('https://tmi.nexon.com/img/btn_none.svg') no-repeat 0 0;
 
   &:hover {
     cursor: pointer;

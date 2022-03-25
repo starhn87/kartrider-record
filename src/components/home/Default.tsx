@@ -1,15 +1,32 @@
 import styled from '@emotion/styled'
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, UIEvent, useState } from 'react'
 import { nickname } from '../../redux/slice'
 import { useAppDispatch } from '../../redux/store'
+import { v4 as uuid } from 'uuid'
 
 export default function Default() {
   const [value, setValue] = useState('')
+  const [isFocusing, setIsFocusing] = useState(false)
+  const [isMounted, SetIsMouted] = useState(false)
   const dispatch = useAppDispatch()
+  const history: string[] = JSON.parse(localStorage.getItem('history') || '[]')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(nickname(value))
+  }
+
+  const handleClick = (hist: string) => {
+    dispatch(nickname(hist))
+  }
+
+  const onBlur = () => {
+    SetIsMouted(true)
+    console.log('hi')
+    setTimeout(() => {
+      setIsFocusing(false)
+      SetIsMouted(false)
+    }, 1000)
   }
 
   return (
@@ -32,6 +49,8 @@ export default function Default() {
                     setValue(e.target.value)
                   }
                   placeholder="카트라이더 닉네임을 입력"
+                  onFocus={() => setIsFocusing(true)}
+                  onBlur={() => onBlur()}
                 />
                 <Button type="submit">
                   <ButtonImg
@@ -40,6 +59,22 @@ export default function Default() {
                   />
                 </Button>
               </form>
+              {isFocusing && (
+                <HistoryBox className={`${isMounted ? 'opened' : ''}`}>
+                  <List>
+                    {history.map((hist) => (
+                      <Item
+                        key={uuid()}
+                        onMouseDown={() => {
+                          handleClick(hist)
+                        }}
+                      >
+                        <History>{hist}</History>
+                      </Item>
+                    ))}
+                  </List>
+                </HistoryBox>
+              )}
             </SearchBox>
           </HomeTitle>
           <LeftImg
@@ -65,12 +100,12 @@ const Wrapper = styled.section`
 
 const Main = styled.div`
   position: relative;
+  overflow: hidden;
   margin-top: -55px;
   text-align: center;
   background-image: url('https://tmi.nexon.com/img/main_bg1.png');
   background-size: cover;
   background-position: 50%;
-  overflow: hidden;
 `
 
 const Inner = styled.div`
@@ -114,9 +149,9 @@ const Title = styled.p`
 `
 
 const MainCopy = styled.div`
-  margin-top: 5px;
   display: inline-block;
   width: 280px;
+  margin-top: 5px;
   line-height: 26px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 15px;
@@ -129,17 +164,17 @@ const Copy = styled.p`
 `
 
 const SearchBox = styled.div`
-  width: 500px;
   position: absolute;
+  width: 500px;
+  height: 67px;
   top: 62%;
   left: 50%;
+  padding: 5px;
   transform: translate(-50%, -50%);
-  height: 67px;
   background: transparent;
   box-sizing: border-box;
   border-radius: 33.5px;
   border: 4px solid #fff;
-  padding: 5px;
   animation: desc 1s;
 
   @media (min-width: 1630px) {
@@ -168,41 +203,31 @@ const SearchBox = styled.div`
 
 const Search = styled.input`
   position: absolute;
-  top: 7px;
+  display: block;
   width: 600px;
   height: 44px;
+  top: 7px;
+  padding: 0 25px;
   line-height: 44px;
   outline: 0;
   border: 0;
-  display: block;
   font-size: 24px;
   font-weight: 400;
-  padding: 0 25px;
   color: #fff;
   background: transparent;
-  opacity: 1;
   animation: fadein 1s;
 
   &::placeholder {
     color: rgba(255, 250, 250, 0.6);
-  }
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 `
 
 const Button = styled.button`
   position: absolute;
   width: 100px;
+  height: 44px;
   top: 7px;
   right: 0;
-  height: 44px;
   line-height: 44px;
   font-size: 24px;
   font-weight: 400;
@@ -223,7 +248,7 @@ const LeftImg = styled.img`
   margin-left: 50px;
   transition: all 0.5s;
   z-index: 1;
-  animation: left 1s linear;
+  animation: left 1s;
 
   @keyframes left {
     from {
@@ -243,7 +268,7 @@ const RightImg = styled.img`
   margin-right: 50px;
   transition: all 0.5s;
   z-index: 1;
-  animation: right 1s linear;
+  animation: right 1s;
 
   @keyframes right {
     from {
@@ -261,12 +286,11 @@ const LeftBg = styled.span`
   height: 296px;
   top: 200px;
   left: 0;
-  z-index: 87;
   margin-left: 50px;
+  z-index: 87;
   background-image: url('https://tmi.nexon.com/img/main_left_bg.png');
   background-size: cover;
   background-position: 50%;
-  transition: all 0.3s ease-in-out;
   z-index: 1;
   animation: left 1s;
 
@@ -286,12 +310,11 @@ const RightBg = styled.span`
   height: 317px;
   top: 200px;
   right: 0;
-  z-index: 87;
   margin-right: 50px;
+  z-index: 87;
   background-image: url('https://tmi.nexon.com/img/main_right_bg.png');
   background-size: cover;
   background-position: 50%;
-  transition: all 0.3s ease-in-out;
   z-index: 1;
   animation: right 1s;
 
@@ -303,4 +326,46 @@ const RightBg = styled.span`
       margin-right: 50px;
     }
   }
+`
+
+const HistoryBox = styled.div`
+  position: relative;
+  display: flex;
+  width: 450px;
+  top: 117%;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+  line-height: 35px;
+  animation: fadein 1s;
+  opacity: 1;
+
+  &.opened {
+    animation: fadeout 1s;
+  }
+
+  @media (min-width: 1630px) {
+    width: 620px;
+  }
+`
+
+const List = styled.ul`
+  width: 100%;
+`
+
+const Item = styled.li`
+  width: 100%;
+  padding: 0 15px;
+  line-height: 50px;
+  text-align: left;
+  overflow-x: hidden;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+`
+
+const History = styled.span`
+  width: 100%;
 `

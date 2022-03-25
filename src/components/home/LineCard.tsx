@@ -22,7 +22,7 @@ export default function LineCard({ data }: LineCardProps) {
   const options = {
     maintainAspectRatio: false,
     events: [],
-    responsive: false,
+    responsive: true,
     plugins: {
       legend: {
         display: false,
@@ -57,9 +57,11 @@ export default function LineCard({ data }: LineCardProps) {
 
 const Wrapper = styled.div`
   display: flex;
+  width: 100%;
   justify-content: center;
 
   canvas {
+    width: 100% !important;
     height: 210px !important;
   }
 `

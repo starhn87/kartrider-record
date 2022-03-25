@@ -44,10 +44,13 @@ export const searchApi = {
 
     let retireCnt = 0
     let winCnt = 0
+    let rankSum = 0
 
     matches[0].matches.forEach((match: IMatch) => {
-      const rank = Number(match.player.matchRank)
-      ranks.unshift(rank >= 8 ? 8 : rank < 1 ? 1 : rank)
+      let rank = Number(match.player.matchRank)
+      rank = rank >= 8 ? 8 : rank < 1 ? 1 : rank
+      ranks.unshift(rank)
+      rankSum += rank
 
       const kart = (
         KartInfo.find((info) => info.id === match.player.kart) as IInfo
@@ -193,10 +196,17 @@ export const searchApi = {
       textColor: 'rgba(246,36,88, 1)',
     }
 
-    const ranksPart = ranks.slice(
-      ranks.length >= 50 ? ranks.length - 50 : 0,
-      ranks.length,
-    )
+    let recentRankSum = 0
+    const ranksPart = ranks
+      .slice(ranks.length >= 50 ? ranks.length - 50 : 0, ranks.length)
+      .map((rank) => {
+        recentRankSum += rank
+
+        return rank
+      })
+
+    const totalAvgRank = rankSum / ranks.length
+    const recentAvgRank = recentRankSum / ranksPart.length
 
     return {
       userId: userInfo.accessId,
@@ -208,6 +218,9 @@ export const searchApi = {
       noRetiredData,
       retiredData,
       ranksPart,
+      winCnt,
+      totalAvgRank: totalAvgRank.toFixed(2),
+      recentAvgRank: recentAvgRank.toFixed(2),
     }
   },
 }

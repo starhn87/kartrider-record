@@ -79,6 +79,24 @@ const global = css`
     margin-top: 1rem;
     margin-bottom: 3rem;
   }
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 `
 
 ReactDOM.render(

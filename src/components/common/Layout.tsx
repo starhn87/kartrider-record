@@ -20,8 +20,8 @@ export default function Layout() {
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-top: 7rem;
   min-height: calc(100vh - 110px);
+  padding-top: 7rem;
 `
 
 const FooterWrapper = styled.div`

@@ -16,6 +16,8 @@ import { shallowEqual } from 'react-redux'
 import Cheer from '../components/home/Cheer'
 import Default from '../components/home/Default'
 import HelmetWrapper from '../components/common/Helmet'
+import ToggleSwitch from '../components/ToggleSwitch'
+import { IRecord } from '../interface'
 
 export default function Home() {
   const { nickname, gameType } = useAppSelector(
@@ -32,13 +34,36 @@ export default function Home() {
     {
       staleTime: 60 * 1000,
       retry: false,
-      onError: (error) => {
+      onError: () => {
         dispatch(reset())
-        alert('에러가 발생하였습니다. 잠시 뒤 다시 시도해주세요.')
+        alert('일치하는 유저가 없습니다.')
       },
     },
   )
   const [page, setPage] = useState(1)
+  const [checked, setChecked] = useState(true)
+  const [matches, setMatches] = useState<IRecord[]>([])
+
+  const handleLocalStorage = () => {
+    if (!nickname) {
+      return
+    }
+
+    const history: string[] = JSON.parse(
+      localStorage.getItem('history') || '[]',
+    )
+
+    const idx = history.findIndex((hist) => hist === nickname)
+
+    if (idx >= 0) {
+      history.splice(idx, 1)
+    } else if (history.length === 3) {
+      history.pop()
+    }
+
+    history.unshift(nickname)
+    localStorage.setItem('history', JSON.stringify(history))
+  }
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
     if (entry.isIntersecting) {
@@ -48,11 +73,28 @@ export default function Home() {
     }
   }
 
+  const onToggle = () => {
+    if (checked) {
+      const filteredMatches = matches?.filter((match) => !match.retired)
+      setMatches(filteredMatches)
+    } else {
+      setMatches(data!.record)
+    }
+
+    setChecked((prev) => !prev)
+  }
+
   useEffect(() => {
     const footer = document.querySelector('footer')
     let observer: IntersectionObserver
 
+    setChecked(true)
+    setPage(1)
+    handleLocalStorage()
+
     if (data) {
+      setMatches(data.record)
+
       if (footer) {
         let observer = new IntersectionObserver(onIntersect, {
           rootMargin: '0px 0px 150px 0px',
@@ -106,6 +148,9 @@ export default function Home() {
       />
       <Container>
         <Card point="종합" title="전적">
+          <Detail>{`${data.record.length}전 ${data.winCnt}승 ${
+            data.record.length - data.winCnt
+          }패`}</Detail>
           <ChartWrapper>
             <Donut {...data.winRateData} />
             <Donut {...data.noRetiredData} />
@@ -118,6 +163,12 @@ export default function Home() {
           </Mode>
         </Card>
         <Card point="순위변동" title="추이">
+          <Detail>
+            {`지난 ${data.record.length}경기`}{' '}
+            <span className="blue">{`${data.totalAvgRank}위`}</span>{' '}
+            {`최근 ${data.ranksPart.length}경기`}{' '}
+            <span className="blue">{`${data.recentAvgRank}위`}</span>{' '}
+          </Detail>
           <LineCard data={data.ranksPart} />
         </Card>
         <Card point="응원" title="한마디">
@@ -129,9 +180,14 @@ export default function Home() {
           <Tab />
         </Record>
         <Record>
-          {data.record.slice(0, page * 50).map((match) => (
-            <Match key={match.matchId} data={match} />
-          ))}
+          <RetireBox>
+            <RetireText>리타이어 노출</RetireText>
+            <ToggleSwitch checked={checked} onToggle={onToggle} />
+          </RetireBox>
+          {matches &&
+            matches
+              .slice(0, page * 50)
+              .map((match) => <Match key={match.matchId} data={match} />)}
         </Record>
       </Box>
     </PageWrapper>
@@ -155,18 +211,18 @@ const DefaultPageWrapper = styled.div`
 
 const Info = styled.div`
   display: flex;
-  align-items: center;
   width: 100%;
   padding-bottom: 15px;
+  align-items: center;
   font-size: 12px;
 `
 
 const Container = styled.div`
-  width: 100%;
   display: grid;
+  width: 100%;
+  margin-top: 20px;
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
-  margin-top: 20px;
 `
 
 const ChartWrapper = styled.div`
@@ -207,5 +263,31 @@ const ModeText = styled.span`
     right: 8px;
     font-size: 20px;
     font-weight: bold;
+  }
+`
+
+const RetireBox = styled.div`
+  display: flex;
+  height: 38px;
+  padding-right: 2px;
+  justify-content: flex-end;
+  align-items: center;
+`
+
+const RetireText = styled.span`
+  height: 19px;
+  margin-right: 7px;
+  font-size: 12px;
+`
+
+const Detail = styled.p`
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-size: 12px;
+  font-weight: bold;
+
+  span.blue {
+    color: var(--blue);
   }
 `

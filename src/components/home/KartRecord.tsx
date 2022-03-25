@@ -129,10 +129,10 @@ export const TabTitle = styled.h5`
   }
 `
 export const TopContent = styled.div`
-  border-top: 1px solid #ccc;
   margin: 0 25px 0 25px;
   padding-top: 15px;
   padding-bottom: 15px;
+  border-top: 1px solid #ccc;
 `
 
 export const TopTitle = styled.p`
@@ -142,11 +142,11 @@ export const TopTitle = styled.p`
 
 const Badge = styled.span`
   display: inline-block;
-  vertical-align: middle;
-  margin-right: 5px;
-  text-align: center;
   width: 40px;
   height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+  text-align: center;
   line-height: 15px;
   font-size: 12px;
   font-weight: 400;
@@ -179,11 +179,11 @@ const Record = styled.div`
 
 const KartRecordItem = styled.li`
   position: relative;
+  display: flex;
   height: 33px;
+  padding-left: 10px;
   line-height: 33px;
   text-align: left;
-  padding-left: 10px;
-  display: flex;
   align-items: center;
 `
 
@@ -192,9 +192,9 @@ const TrackImg = styled.img`
 `
 
 const TrackInfo = styled.span`
-  max-width: 85px;
-  margin-left: 5px;
   overflow: hidden;
+  margin-left: 5px;
+  max-width: 85px;
   text-overflow: ellipsis;
   white-space: nowrap;
 
@@ -229,11 +229,11 @@ export const Th = styled.th`
   &::after {
     content: '';
     position: absolute;
-    top: 10px;
-    right: 0;
     display: inline-block;
     width: 1px;
     height: 15px;
+    top: 10px;
+    right: 0;
     background-color: #ccc;
   }
 `
@@ -249,8 +249,8 @@ export const Td = styled.td`
 
   &.left {
     display: flex;
+    padding-left: 10px;
     align-items: center;
     text-align: left;
-    padding-left: 10px;
   }
 `

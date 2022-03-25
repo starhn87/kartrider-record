@@ -100,11 +100,11 @@ export default function More({ matchId }: MoreProps) {
 
 const Wrapper = styled.div`
   position: relative;
-  box-sizing: border-box;
   width: 100%;
   height: 177px;
   margin-top: -5px;
   margin-bottom: 5px;
+  box-sizing: border-box;
   border-width: 1px 1px 1px 1px;
   border-color: #f2f2f2;
   border-style: solid;
@@ -115,8 +115,8 @@ const Wrapper = styled.div`
 `
 
 const List = styled.ul`
-  width: 100%;
   display: grid;
+  width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 `
 

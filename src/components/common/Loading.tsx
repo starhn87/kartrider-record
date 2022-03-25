@@ -12,12 +12,11 @@ const Loading = () => {
 
 const Ring = styled.div`
   position: fixed;
+  width: 15rem;
+  height: 15rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 15rem;
-  height: 15rem;
-  /* background: transparent; */
   border: 1rem solid #23a2f7;
   border-radius: 50%;
   text-align: center;
@@ -31,10 +30,10 @@ const Ring = styled.div`
   &:before {
     content: '';
     position: absolute;
-    top: -1rem;
-    left: -1rem;
     width: 100%;
     height: 100%;
+    top: -1rem;
+    left: -1rem;
     border: 1rem solid transparent;
     border-top: 1rem solid #002473;
     border-right: 1rem solid #002473;
@@ -43,12 +42,12 @@ const Ring = styled.div`
   }
 
   span {
-    display: block;
     position: absolute;
-    top: calc(50% - 0.2rem);
-    left: 50%;
+    display: block;
     width: 50%;
     height: 0.4rem;
+    top: calc(50% - 0.2rem);
+    left: 50%;
     background: transparent;
     transform-origin: left;
     animation: animateB 3s linear infinite;
@@ -58,10 +57,10 @@ const Ring = styled.div`
       position: absolute;
       width: 2rem;
       height: 2rem;
-      border-radius: 50%;
-      background: #002473;
       top: 0rem;
       right: -1.4rem;
+      border-radius: 50%;
+      background: #002473;
     }
   }
 

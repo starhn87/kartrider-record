@@ -104,8 +104,8 @@ const Search = styled.input`
 `
 const Button = styled.button`
   position: relative;
+  top: 4px;
   font-size: 14px;
   color: white;
   background-color: transparent;
-  top: 4px;
 `
