@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import React, { useState } from 'react'
+import styled from '@emotion/styled'
 
 interface IndicatorGuideProps {
   onClose: () => void

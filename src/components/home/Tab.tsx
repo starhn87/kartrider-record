@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import React, { SyntheticEvent, useState } from 'react'
+import styled from '@emotion/styled'
 import KartRecord from './KartRecord'
 import TrackRecord from './TrackRecord'
 

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import React from 'react'
+import styled from '@emotion/styled'
 import { Line } from 'react-chartjs-2'
 import { LineCardProps } from '../../interface'
 
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   justify-content: center;
 
   canvas {
-    width: 100% !important;
+    width: 98% !important;
     height: 210px !important;
   }
 `
