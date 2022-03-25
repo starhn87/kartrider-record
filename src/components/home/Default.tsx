@@ -22,7 +22,6 @@ export default function Default() {
 
   const onBlur = () => {
     SetIsMouted(true)
-    console.log('hi')
     setTimeout(() => {
       setIsFocusing(false)
       SetIsMouted(false)
