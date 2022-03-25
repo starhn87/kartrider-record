@@ -17,8 +17,7 @@ import { formatTime, subDate } from './util'
 const api = axios.create({
   baseURL: '/api',
   headers: {
-    Authorization:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMTU3Nzc5MzM1OSIsImF1dGhfaWQiOiIyIiwidG9rZW5fdHlwZSI6IkFjY2Vzc1Rva2VuIiwic2VydmljZV9pZCI6IjQzMDAxMTM5MyIsIlgtQXBwLVJhdGUtTGltaXQiOiI1MDA6MTAiLCJuYmYiOjE2NDc3NjgwMzIsImV4cCI6MTY2MzMyMDAzMiwiaWF0IjoxNjQ3NzY4MDMyfQ.2k2Ww1aqGG0wKnPID7xTrz2igMCUywLtapw9zM6pRRQ',
+    Authorization: process.env.REACT_APP_API_KEY!,
   },
 })
 

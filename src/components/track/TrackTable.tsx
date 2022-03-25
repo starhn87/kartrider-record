@@ -1,8 +1,14 @@
-import React, { Dispatch, memo, SetStateAction } from 'react'
+import React, {
+  Dispatch,
+  memo,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
 import styled from '@emotion/styled'
 import { formatTime, onError } from '../../util'
 import { v4 as uuid } from 'uuid'
-import { ITrackDetail, ITrackRank } from '../../interface'
+import { ITrackDetail } from '../../interface'
 import { ISort } from '../../routes/Track'
 
 interface TrackTableProps {
@@ -40,12 +46,13 @@ const HEADERS: IHeaders[] = [
   },
 ]
 
-export default function TrackTable({
+export default memo(function TrackTable({
   tracks,
   totalCount,
   sort,
   setSort,
 }: TrackTableProps) {
+  const [page, setPage] = useState(1)
   const sortedTracks = tracks?.sort((a: ITrackDetail, b: ITrackDetail) => {
     if (sort.seq === 'asc') {
       return a[sort.standard] > b[sort.standard] ? 1 : -1
@@ -75,6 +82,27 @@ export default function TrackTable({
     }
   }
 
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (entry.isIntersecting) {
+      if (tracks!.length > page * 30) setPage((prev) => prev + 1)
+    }
+  }
+
+  useEffect(() => {
+    const footer = document.querySelector('footer')
+    let observer: IntersectionObserver
+
+    if (tracks && footer) {
+      let observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.9,
+      })
+
+      observer.observe(footer)
+    }
+
+    return () => observer && observer.disconnect()
+  }, [tracks])
+
   return (
     <Table>
       <Thead>
@@ -85,6 +113,10 @@ export default function TrackTable({
           {HEADERS.map((header) => (
             <Th key={uuid()}>
               <ThBox>
+                <TMI
+                  src="	https://tmi.nexon.com/img/assets/icon_tmi.png"
+                  alt="TMI"
+                />
                 <Column>{header.name}</Column>
                 <Sort
                   className={`${
@@ -102,27 +134,41 @@ export default function TrackTable({
 
           <Th>
             <ThBox>
+              <TMI
+                src="	https://tmi.nexon.com/img/assets/icon_tmi.png"
+                alt="TMI"
+              />
               <Column>사용 카트</Column>
             </ThBox>
           </Th>
         </tr>
       </Thead>
       <Tbody>
-        {sortedTracks?.map((track, index) => (
+        {sortedTracks?.slice(0, page * 30).map((track, index) => (
           <Tr key={uuid()}>
             <Td>{index + 1}</Td>
-            <Td className="td_track">
+            <Td
+              className={`td_track ${'name' === sort.standard ? 'blue' : ''}`}
+            >
               <div>
                 <img src="https://s3-ap-northeast-1.amazonaws.com/solution-userstats/kartimg/Category/unknown_1.png" />
                 <span>{track.name}</span>
               </div>
             </Td>
-            <Td>{`${Math.round((track.count / totalCount!) * 100)}%`}</Td>
-            <Td>{`${Math.round(
+            <Td
+              className={`${'count' === sort.standard ? 'blue' : ''}`}
+            >{`${Math.round((track.count / totalCount!) * 100)}%`}</Td>
+            <Td
+              className={`${'retireCount' === sort.standard ? 'blue' : ''}`}
+            >{`${Math.round(
               (track.retireCount / (track.count + track.retireCount)) * 100,
             )}%`}</Td>
-            <Td>{track.bestRider}</Td>
-            <Td>{formatTime(track.bestRecord)}</Td>
+            <Td className={`${'bestRider' === sort.standard ? 'blue' : ''}`}>
+              {track.bestRider}
+            </Td>
+            <Td className={`${'bestRecord' === sort.standard ? 'blue' : ''}`}>
+              {track.bestRecord > 0 ? formatTime(track.bestRecord) : '-'}
+            </Td>
             <Td>
               <KartImg
                 src={`https://s3-ap-northeast-1.amazonaws.com/solution-userstats/metadata/kart/${track.kartId}.png`}
@@ -135,7 +181,7 @@ export default function TrackTable({
       </Tbody>
     </Table>
   )
-}
+})
 
 const Table = styled.table`
   width: 100%;
@@ -251,4 +297,11 @@ const Sort = styled.span`
   &.asc {
     background: url('https://tmi.nexon.com/img/btn_asc.svg') no-repeat 0 0;
   }
+`
+
+const TMI = styled.img`
+  position: absolute;
+  left: 50%;
+  margin-top: -67.5px;
+  margin-left: -14.5px;
 `

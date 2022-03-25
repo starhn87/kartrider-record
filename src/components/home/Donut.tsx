@@ -33,6 +33,7 @@ export default function Donut({
       display: true,
       text: `90%`,
     },
+    events: [],
   }
 
   return (

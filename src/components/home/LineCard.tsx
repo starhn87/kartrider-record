@@ -19,38 +19,38 @@ export default function LineCard({ data }: LineCardProps) {
     ],
   }
 
+  const options = {
+    maintainAspectRatio: false,
+    events: [],
+    responsive: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    layout: {
+      padding: {
+        top: 20,
+        bottom: 0,
+        right: 10,
+        left: 10,
+      },
+    },
+    scales: {
+      x: {
+        display: false,
+      },
+      y: {
+        reverse: true,
+        suggestedMin: 1,
+        suggestedMax: 8,
+      },
+    },
+  }
+
   return (
     <Wrapper>
-      <Line
-        options={{
-          maintainAspectRatio: false,
-          responsive: false,
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          layout: {
-            padding: {
-              top: 20,
-              bottom: 0,
-              right: 10,
-              left: 10,
-            },
-          },
-          scales: {
-            x: {
-              display: false,
-            },
-            y: {
-              reverse: true,
-              suggestedMin: 1,
-              suggestedMax: 8,
-            },
-          },
-        }}
-        data={chartData}
-      />
+      <Line options={options} data={chartData} />
     </Wrapper>
   )
 }

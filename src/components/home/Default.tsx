@@ -152,13 +152,13 @@ const SearchBox = styled.div`
       width: 500px;
     }
     to {
-      width: 680px;
+      width: 670px;
     }
   }
 
   @keyframes desc {
     from {
-      width: 680px;
+      width: 670px;
     }
     to {
       width: 500px;

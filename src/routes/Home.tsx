@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { useQuery } from 'react-query'
@@ -38,9 +38,30 @@ export default function Home() {
       },
     },
   )
+  const [page, setPage] = useState(1)
+
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (entry.isIntersecting) {
+      if (data!.record.length > page * 50) {
+        setPage((prev) => prev + 1)
+      }
+    }
+  }
 
   useEffect(() => {
+    const footer = document.querySelector('footer')
+    let observer: IntersectionObserver
+
     if (data) {
+      if (footer) {
+        let observer = new IntersectionObserver(onIntersect, {
+          rootMargin: '0px 0px 150px 0px',
+          threshold: 0.9,
+        })
+
+        observer.observe(footer)
+      }
+
       dispatch(
         home({
           id: data.userId,
@@ -49,6 +70,8 @@ export default function Home() {
         }),
       )
     }
+
+    return () => observer && observer.disconnect()
   }, [data])
 
   if (isFetching) {
@@ -106,7 +129,7 @@ export default function Home() {
           <Tab />
         </Record>
         <Record>
-          {data.record.map((match) => (
+          {data.record.slice(0, page * 50).map((match) => (
             <Match key={match.matchId} data={match} />
           ))}
         </Record>
@@ -117,7 +140,6 @@ export default function Home() {
 
 export const PageWrapper = styled.div`
   width: 1000px;
-  min-height: 1000px;
   margin: auto;
   padding-bottom: 100px;
 

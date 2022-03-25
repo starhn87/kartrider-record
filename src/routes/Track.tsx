@@ -130,7 +130,7 @@ const Section = styled.div`
 const SearchBox = styled.div`
   position: relative;
   display: flex;
-  height: 67px;
+  height: 69px;
   padding-left: 25px;
   line-height: 67px;
   font-size: 12px;
