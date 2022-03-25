@@ -56,13 +56,16 @@ const Wrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   z-index: 5;
+  opacity: 1;
   margin-top: 12px;
   padding-bottom: 23px;
   font-weight: 300;
   letter-spacing: -1px;
   animation: fadein 1s;
+  opacity: 1;
 
   &.opened {
+    opacity: 0;
     animation: fadeout 1s;
   }
 
@@ -123,4 +126,8 @@ const Xbutton = styled.img`
   right: 23px;
   width: 14px;
   height: 14px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `

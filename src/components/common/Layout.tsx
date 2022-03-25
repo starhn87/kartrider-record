@@ -6,20 +6,22 @@ import Footer from './Footer'
 
 export default function Layout() {
   return (
-    <Wrapper>
-      <Header />
-      <Outlet />
+    <>
+      <Wrapper>
+        <Header />
+        <Outlet />
+      </Wrapper>
       <FooterWrapper>
         <Footer />
       </FooterWrapper>
-    </Wrapper>
+    </>
   )
 }
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   padding-top: 7rem;
+  min-height: calc(100vh - 110px);
 `
 
 const FooterWrapper = styled.div`
