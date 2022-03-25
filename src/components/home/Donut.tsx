@@ -48,8 +48,8 @@ export default function Donut({
 }
 
 const Wrapper = styled.div`
-  margin: 8px 0;
   width: 100%;
+  margin: 8px 0;
   font-size: 14px;
 
   :not(:last-child) {
@@ -62,12 +62,12 @@ const Title = styled.p`
 `
 
 const GraphWrapper = styled.div`
-  margin: 20px auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 83px;
   height: 83px;
+  margin: 20px auto;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
 `
 

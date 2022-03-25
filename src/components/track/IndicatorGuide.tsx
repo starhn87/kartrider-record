@@ -50,15 +50,15 @@ export default function IndicatorGuide({ onClose }: IndicatorGuideProps) {
 
 const Wrapper = styled.div`
   position: absolute;
+  width: 570px;
   top: 42px;
   right: 0;
-  width: 570px;
+  margin-top: 12px;
+  padding-bottom: 23px;
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   z-index: 5;
   opacity: 1;
-  margin-top: 12px;
-  padding-bottom: 23px;
   font-weight: 300;
   letter-spacing: -1px;
   animation: fadein 1s;
@@ -67,24 +67,6 @@ const Wrapper = styled.div`
   &.opened {
     opacity: 0;
     animation: fadeout 1s;
-  }
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
   }
 `
 
@@ -111,8 +93,8 @@ const Container = styled.div`
 `
 
 const Name = styled.div`
-  flex: 0.3;
   padding-left: 30px;
+  flex: 0.3;
 `
 
 const Desc = styled.div`
@@ -121,11 +103,11 @@ const Desc = styled.div`
 
 const Xbutton = styled.img`
   position: absolute;
-  top: 50%;
-  margin-top: -7px;
-  right: 23px;
   width: 14px;
   height: 14px;
+  top: 50%;
+  right: 23px;
+  margin-top: -7px;
 
   &:hover {
     cursor: pointer;

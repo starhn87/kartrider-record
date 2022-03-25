@@ -49,9 +49,9 @@ const Wrapper = styled.section``
 const Container = styled.div`
   position: relative;
   display: table;
-  margin-bottom: 5px;
   width: 100%;
   height: 88px;
+  margin-bottom: 5px;
   font-size: 16px;
   background-color: #fff;
   border-width: 1px 1px 1px 4px;
@@ -71,9 +71,9 @@ const Container = styled.div`
 
 const Element = styled.p`
   display: table-cell;
-  vertical-align: middle;
   width: 150px;
   height: 30px;
+  vertical-align: middle;
 
   &.type {
     width: 65px;
@@ -84,8 +84,8 @@ const Element = styled.p`
 
   &.result {
     width: 140px;
-    color: var(--gray);
     padding-left: 10px;
+    color: var(--gray);
     font-size: 30px;
     font-weight: bold;
     font-style: italic;
@@ -124,10 +124,10 @@ const Element = styled.p`
 
   &.open {
     position: absolute;
-    box-sizing: border-box;
-    right: 0;
     width: 40px;
     height: 87px;
+    right: 0;
+    box-sizing: border-box;
     line-height: 87px;
     font-weight: 400;
     text-align: center;

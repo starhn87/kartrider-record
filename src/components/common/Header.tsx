@@ -75,24 +75,22 @@ export default function Header() {
 
 const Wrapper = styled.header`
   position: fixed;
+  display: flex;
   width: 100%;
   min-width: 1000px;
   top: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #005fcc;
   z-index: 99999;
-
-  @media (max-width: 768px) {
-  }
 `
+
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 1000px;
   height: 55px;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const Sector = styled.section`
@@ -113,9 +111,9 @@ const Logo = styled.img`
 
 const Menu = styled.ul`
   display: flex;
+  height: 100%;
   justify-content: center;
   align-items: center;
-  height: 100%;
 `
 
 const Content = styled.li`

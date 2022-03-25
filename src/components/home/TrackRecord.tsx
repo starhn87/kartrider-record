@@ -28,15 +28,6 @@ export default function TrackRecord({
 
   return (
     <TabContent>
-      {/* <TabTitle>
-        <span>트랙</span> 전적
-      </TabTitle> */}
-      {/* <TopContent>
-        <TopTitle>
-          {trackInfo[selected].name}
-          <Dist>&nbsp;&nbsp;기록분포</Dist>
-        </TopTitle>
-      </TopContent> */}
       <TableBox>
         <Table>
           <Thead>

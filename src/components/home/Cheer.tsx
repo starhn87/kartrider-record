@@ -137,8 +137,8 @@ export default function Cheer() {
 }
 
 const Container = styled.div`
-  margin: 0 12px 0;
   height: 159px;
+  margin: 0 12px 0;
   overflow-y: auto;
   font-size: 12px;
 `
@@ -151,8 +151,8 @@ const Item = styled.li`
   position: relative;
   display: flex;
   margin-right: 10px;
-  align-items: center;
   right: 0;
+  align-items: center;
 
   &.fresh {
     animation: showing 1s ease;
@@ -180,12 +180,11 @@ const NickName = styled.p`
 `
 
 const ChatBox = styled.div`
-  margin-left: 15px;
-  flex: 2.5;
-  display: inline-block;
   position: relative;
-  padding: 10px;
+  display: inline-block;
   margin: 5px 5px 5px 15px;
+  padding: 10px;
+  flex: 2.5;
   border: 1px solid #c3ced5;
   color: #333;
   background: #fff;
@@ -195,6 +194,7 @@ const ChatBox = styled.div`
   &::before {
     content: '';
     position: absolute;
+    width: 0;
     top: 10px;
     bottom: auto;
     left: -8px;
@@ -202,12 +202,12 @@ const ChatBox = styled.div`
     border-width: 8px 8px 8px 0;
     border-color: transparent #c3ced5;
     display: block;
-    width: 0;
   }
 
   &::after {
     content: '';
     position: absolute;
+    width: 0;
     top: 10px;
     bottom: auto;
     left: -7px;
@@ -215,7 +215,6 @@ const ChatBox = styled.div`
     border-width: 8px 8px 8px 0;
     border-color: transparent #fff;
     display: block;
-    width: 0;
   }
 `
 
@@ -233,11 +232,11 @@ const MessageBox = styled.div`
 `
 
 const Comment = styled.input`
-  flex: 2;
+  width: 60%;
   margin-right: 5px;
   padding: 1px 2px;
+  flex: 2;
   vertical-align: middle;
-  width: 60%;
   border: none;
   border-bottom: 1px solid #ccc;
   font-family: Noto Sans KR;
@@ -250,16 +249,16 @@ const NameWriter = styled(Comment)`
 `
 
 const Button = styled.button`
+  padding: 1px 6px;
   border: 1px solid #ccc;
   background-color: #ccc;
   color: #fff;
   border-radius: 5px;
-  padding: 1px 6px;
 
   &.active {
+    width: 15%;
     flex: 0.5;
     vertical-align: middle;
-    width: 15%;
     border: 1px solid var(--blue);
     background-color: transparent;
     color: var(--blue);
@@ -268,8 +267,8 @@ const Button = styled.button`
 `
 
 const CircleWrapper = styled.span`
-  color: #f62459;
   margin-left: 5px;
+  color: #f62459;
   font-size: 10px;
   vertical-align: middle;
 `

@@ -57,10 +57,10 @@ export default function UserInfo({
 }
 
 const Wrapper = styled.div`
-  background-color: white;
   position: relative;
   height: 175px;
   padding-top: 26px;
+  background-color: white;
   background-color: rgba(0, 0, 0, 0.025);
   background-image: url('https://tmi.nexon.com/img/background_flag_w.png');
   background-size: cover;
@@ -91,21 +91,20 @@ const MatchTypeBox = styled.div`
   overflow: hidden;
   margin-right: 15px;
   margin-top: 20px;
-  border-radius: 5px;
   padding: 0;
-  overflow: hidden;
+  border-radius: 5px;
   border: 1px solid var(--blue);
 `
 
 const MatchType = styled.button`
-  vertical-align: middle;
   display: inline-block;
   width: 100px;
   height: 29px;
+  margin: 0;
+  padding: 0;
   font-size: 12px;
   font-weight: 400;
-  padding: 0;
-  margin: 0;
+  vertical-align: middle;
   text-align: center;
   background-color: transparent;
   color: var(--blue);
@@ -124,8 +123,8 @@ const ContentBox = styled.div`
 `
 
 const Icon = styled.div`
-  font-size: 18px;
   margin-right: 5px;
+  font-size: 18px;
 `
 
 const Buttons = styled.div`
@@ -141,8 +140,8 @@ const ActionBox = styled.div`
 
 const Refresh = styled.span`
   display: inline-block;
-  margin-right: 10px;
   width: 82px;
+  margin-right: 10px;
   line-height: 25px;
   font-size: 12px;
   font-weight: 400;
