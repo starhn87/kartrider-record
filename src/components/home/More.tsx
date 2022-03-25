@@ -1,5 +1,5 @@
+import React from 'react'
 import styled from '@emotion/styled'
-import React, { SyntheticEvent } from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { matchApi } from '../../api'

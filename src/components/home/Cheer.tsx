@@ -1,10 +1,9 @@
-import styled from '@emotion/styled'
 import React, { ChangeEvent, useEffect, useState } from 'react'
+import styled from '@emotion/styled'
 import { addComment, getComments } from '../../firebase'
 import { useAppSelector } from '../../redux/store'
 import { v4 as uuid } from 'uuid'
 import { MdCircle } from 'react-icons/md'
-import { differenceInMilliseconds, differenceInSeconds } from 'date-fns'
 
 interface IComment {
   [key: string]: {

@@ -1,5 +1,5 @@
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import styled from '@emotion/styled'
-import React, { ChangeEvent, FormEvent, UIEvent, useState } from 'react'
 import { nickname } from '../../redux/slice'
 import { useAppDispatch } from '../../redux/store'
 import { v4 as uuid } from 'uuid'
@@ -22,7 +22,6 @@ export default function Default() {
 
   const onBlur = () => {
     SetIsMouted(true)
-    console.log('hi')
     setTimeout(() => {
       setIsFocusing(false)
       SetIsMouted(false)
