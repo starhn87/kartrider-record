@@ -46,7 +46,7 @@ export default function Donut({
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   width: 100%;
   margin: 8px 0;
   font-size: 14px;
@@ -60,7 +60,7 @@ const Title = styled.p`
   text-align: center;
 `
 
-const GraphWrapper = styled.div`
+const GraphWrapper = styled.section`
   display: flex;
   width: 83px;
   height: 83px;

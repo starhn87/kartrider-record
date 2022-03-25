@@ -118,7 +118,7 @@ const Title = styled.h1`
   font-weight: 400;
 `
 
-const Line = styled.div`
+const Line = styled.article`
   display: inline-block;
   width: 35px;
   height: 3px;
@@ -139,12 +139,12 @@ const SubTitle = styled.p`
   }
 `
 
-const Section = styled.div`
+const Section = styled.section`
   margin-top: 30px;
   background-color: white;
 `
 
-const SearchBox = styled.div`
+const SearchBox = styled.article`
   position: relative;
   display: flex;
   height: 69px;

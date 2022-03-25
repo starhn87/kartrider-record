@@ -48,7 +48,7 @@ export default function IndicatorGuide({ onClose }: IndicatorGuideProps) {
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   position: absolute;
   width: 570px;
   top: 42px;
@@ -85,19 +85,19 @@ const SubTitle = styled.h5`
   color: #00f0ff;
 `
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   line-height: 15px;
   font-size: 11px;
   color: #00f0ff;
 `
 
-const Name = styled.div`
+const Name = styled.article`
   padding-left: 30px;
   flex: 0.3;
 `
 
-const Desc = styled.div`
+const Desc = styled.article`
   flex: 0.7;
 `
 

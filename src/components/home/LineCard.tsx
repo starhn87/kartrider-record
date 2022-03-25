@@ -55,7 +55,7 @@ export default function LineCard({ data }: LineCardProps) {
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   display: flex;
   width: 100%;
   justify-content: center;

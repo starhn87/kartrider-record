@@ -135,6 +135,7 @@ const Element = styled.p`
 
     &:hover {
       background-color: #ebebeb;
+      cursor: pointer;
       &.win {
         background-color: rgba(0, 119, 255, 0.1);
       }

@@ -276,7 +276,7 @@ const KartImg = styled.img`
   vertical-align: middle;
 `
 
-const ThBox = styled.div`
+const ThBox = styled.article`
   display: flex;
   align-items: center;
   justify-content: center;
