@@ -1,12 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import {
-  getFirestore,
-  getDoc,
-  doc,
-  setDoc,
-  orderBy,
-  query,
-} from 'firebase/firestore/lite'
+import { getFirestore, getDoc, doc, setDoc } from 'firebase/firestore/lite'
 
 const firebaseConfig = {
   // firebase 설정과 관련된 개인 정보
