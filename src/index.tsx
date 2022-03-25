@@ -2,14 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { Global, css } from '@emotion/react'
+import { Provider } from 'react-redux'
+import store from './redux/store'
+import 'chart.js/auto'
 
 const global = css`
   :root {
-    --primary: #669cff;
-    --blue: #5e72e4;
-    --sky: #e0f0ff;
-    --gray: #6c757d;
-    --lighter: #e9ecef;
+    --blue: #07f;
+    --gray: #a1a1a1;
+    --red: #f62459;
+    --black: #1f334a;
   }
 
   * {
@@ -22,6 +24,7 @@ const global = css`
     font-size: 62.5%;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    letter-spacing: -1px;
   }
 
   body {
@@ -31,7 +34,8 @@ const global = css`
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
-    background-color: white;
+    background-color: #fafafa;
+    color: var(--black);
   }
 
   a {
@@ -75,12 +79,32 @@ const global = css`
     margin-top: 1rem;
     margin-bottom: 3rem;
   }
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 `
 
 ReactDOM.render(
   <React.StrictMode>
     <Global styles={global} />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 )
