@@ -2,18 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { KartRecordProps } from '../../interface'
 import { useAppSelector } from '../../redux/store'
 import { formatTime } from '../../util'
-import {
-  TabContent,
-  Table,
-  TableBox,
-  TabTitle,
-  Td,
-  Th,
-  Thead,
-  TopContent,
-  TopTitle,
-  Tr,
-} from './KartRecord'
+import { TabContent, Table, TableBox, Td, Th, Thead, Tr } from './KartRecord'
 
 export default function TrackRecord({
   onTrackError,

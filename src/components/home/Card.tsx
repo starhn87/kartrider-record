@@ -13,7 +13,7 @@ export default function Card({ title, point, children }: CardProps) {
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   position: relative;
   background-color: #fff;
   border: 1px solid #f2f2f2;

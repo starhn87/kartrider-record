@@ -135,7 +135,7 @@ export default function Cheer() {
   )
 }
 
-const Container = styled.div`
+const Container = styled.section`
   height: 159px;
   margin: 0 12px 0;
   overflow-y: auto;
@@ -169,7 +169,7 @@ const Item = styled.li`
   }
 `
 
-const NickNameBox = styled.div`
+const NickNameBox = styled.article`
   display: inline-block;
 `
 
@@ -178,7 +178,7 @@ const NickName = styled.p`
   line-height: 53px;
 `
 
-const ChatBox = styled.div`
+const ChatBox = styled.article`
   position: relative;
   display: inline-block;
   margin: 5px 5px 5px 15px;
@@ -225,7 +225,7 @@ const Writer = styled.div`
   line-height: 30px;
 `
 
-const MessageBox = styled.div`
+const MessageBox = styled.section`
   display: flex;
   height: 30px;
 `

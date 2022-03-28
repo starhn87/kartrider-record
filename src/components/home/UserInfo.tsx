@@ -86,7 +86,7 @@ const Name = styled.h1`
   font-size: 45px;
 `
 
-const MatchTypeBox = styled.div`
+const MatchTypeBox = styled.article`
   display: inline-block;
   overflow: hidden;
   margin-right: 15px;
@@ -115,7 +115,7 @@ const MatchType = styled.button`
   }
 `
 
-const ContentBox = styled.div`
+const ContentBox = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,12 +127,12 @@ const Icon = styled.div`
   font-size: 18px;
 `
 
-const Buttons = styled.div`
+const Buttons = styled.section`
   display: flex;
   align-items: center;
 `
 
-const ActionBox = styled.div`
+const ActionBox = styled.article`
   position: relative;
   display: inline-block;
   margin: 19px 10px 0 10px;

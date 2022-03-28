@@ -209,7 +209,7 @@ export default function Home() {
   )
 }
 
-export const PageWrapper = styled.div`
+export const PageWrapper = styled.section`
   width: 1000px;
   margin: auto;
   padding-bottom: 100px;
@@ -219,12 +219,12 @@ export const PageWrapper = styled.div`
   }
 `
 
-const DefaultPageWrapper = styled.div`
+const DefaultPageWrapper = styled.section`
   width: 100%;
   min-width: 1300px;
 `
 
-const Info = styled.div`
+const Info = styled.article`
   display: flex;
   width: 100%;
   padding-bottom: 15px;
@@ -232,7 +232,7 @@ const Info = styled.div`
   font-size: 12px;
 `
 
-const Container = styled.div`
+const Container = styled.section`
   display: grid;
   width: 100%;
   margin-top: 20px;
@@ -240,25 +240,25 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const ChartWrapper = styled.div`
+const ChartWrapper = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
 `
 
-const Box = styled.div`
+const Box = styled.section`
   display: grid;
   margin-top: 20px;
   grid-template-columns: 1fr 2fr;
 `
 
-const Record = styled.div`
+const Record = styled.article`
   :not(:last-child) {
     margin-right: 10px;
   }
 `
 
-const Mode = styled.div`
+const Mode = styled.article`
   position: relative;
   margin: 8px;
   padding: 8px;
@@ -281,7 +281,7 @@ const ModeText = styled.span`
   }
 `
 
-const RetireBox = styled.div`
+const RetireBox = styled.article`
   display: flex;
   height: 38px;
   padding-right: 2px;

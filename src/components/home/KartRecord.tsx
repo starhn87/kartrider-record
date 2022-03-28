@@ -100,7 +100,7 @@ export default function KartRecord({
   )
 }
 
-export const TabContent = styled.div`
+export const TabContent = styled.section`
   position: relative;
   margin-bottom: 10px;
   background-color: #fff;
@@ -126,7 +126,7 @@ export const TabTitle = styled.h5`
     color: var(--blue);
   }
 `
-export const TopContent = styled.div`
+export const TopContent = styled.article`
   margin: 0 25px 0 25px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -153,12 +153,12 @@ const Badge = styled.span`
   color: #1f334a;
 `
 
-const Kart = styled.div`
+const Kart = styled.section`
   display: flex;
   padding: 10px 0;
 `
 
-const Thumbnail = styled.div`
+const Thumbnail = styled.article`
   position: relative;
   flex: 4;
   text-align: center;
@@ -171,7 +171,7 @@ const KartImg = styled.img`
   vertical-align: middle;
 `
 
-const Record = styled.div`
+const Record = styled.section`
   flex: 6;
 `
 
@@ -202,7 +202,7 @@ const TrackInfo = styled.span`
   }
 `
 
-export const TableBox = styled.div`
+export const TableBox = styled.section`
   overflow-y: auto;
   height: 235px;
   text-align: center;

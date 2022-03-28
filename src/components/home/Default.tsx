@@ -112,13 +112,13 @@ const Inner = styled.div`
   margin: auto;
 `
 
-const HomeTitle = styled.div`
+const HomeTitle = styled.section`
   position: relative;
   height: 655px;
   z-index: 2;
 `
 
-const MainMessage = styled.div`
+const MainMessage = styled.article`
   padding-top: 200px;
   animation: showing 1s;
 
@@ -147,7 +147,7 @@ const Title = styled.p`
   color: white;
 `
 
-const MainCopy = styled.div`
+const MainCopy = styled.article`
   display: inline-block;
   width: 280px;
   margin-top: 5px;
@@ -162,7 +162,7 @@ const Copy = styled.p`
   color: white;
 `
 
-const SearchBox = styled.div`
+const SearchBox = styled.article`
   position: absolute;
   width: 500px;
   height: 67px;
@@ -327,7 +327,7 @@ const RightBg = styled.span`
   }
 `
 
-const HistoryBox = styled.div`
+const HistoryBox = styled.article`
   position: relative;
   display: flex;
   width: 450px;

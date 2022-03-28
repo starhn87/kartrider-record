@@ -98,7 +98,7 @@ export default function More({ matchId }: MoreProps) {
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   position: relative;
   width: 100%;
   height: 177px;
@@ -124,7 +124,7 @@ const Item = styled.li`
   float: left;
 `
 
-const Box = styled.div`
+const Box = styled.section`
   background-color: #fff;
   text-align: center;
   font-size: 12px;
@@ -135,7 +135,7 @@ const Box = styled.div`
   }
 `
 
-const Content = styled.div`
+const Content = styled.article`
   &.my.first {
     color: var(--blue);
   }

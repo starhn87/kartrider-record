@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   padding-top: 7rem;
 `
 
-const FooterWrapper = styled.div`
+const FooterWrapper = styled.section`
   width: 1000px;
   margin: auto;
 

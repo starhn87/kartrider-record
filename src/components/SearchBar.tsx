@@ -49,7 +49,7 @@ export default function SearchBar() {
   )
 }
 
-const SearchBarWrapper = styled.div`
+const SearchBarWrapper = styled.article`
   width: 195px;
   background: transparent;
   border: none;
@@ -71,12 +71,6 @@ const Form = styled.form`
   align-items: center;
 `
 
-const SelectWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  border-right: 1px solid white;
-`
-
 const Search = styled.input`
   width: 100%;
   height: 100%;
@@ -93,6 +87,7 @@ const Search = styled.input`
   &:focus {
   }
 `
+
 const Button = styled.button`
   position: relative;
   top: 4px;

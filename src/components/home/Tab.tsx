@@ -61,7 +61,7 @@ const Item = styled.li`
   cursor: pointer;
 `
 
-const Container = styled.div`
+const Container = styled.article`
   width: 116px;
   height: 38px;
   line-height: 38px;
