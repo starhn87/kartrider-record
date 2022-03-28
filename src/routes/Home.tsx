@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from '@emotion/styled'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { useQuery } from 'react-query'
@@ -43,6 +43,7 @@ export default function Home() {
   const [page, setPage] = useState(1)
   const [checked, setChecked] = useState(true)
   const [matches, setMatches] = useState<IRecord[]>([])
+  const observer = useRef<IntersectionObserver | null>(null)
 
   const handleLocalStorage = () => {
     if (!nickname) {
@@ -84,25 +85,37 @@ export default function Home() {
     setChecked((prev) => !prev)
   }
 
-  useEffect(() => {
+  const updateObserver = () => {
     const footer = document.querySelector('footer')
-    let observer: IntersectionObserver
-
-    setChecked(true)
-    setPage(1)
-    handleLocalStorage()
 
     if (data) {
-      setMatches(data.record)
-
       if (footer) {
-        let observer = new IntersectionObserver(onIntersect, {
+        observer.current = new IntersectionObserver(onIntersect, {
           rootMargin: '0px 0px 150px 0px',
           threshold: 0.9,
         })
 
-        observer.observe(footer)
+        observer.current.observe(footer)
       }
+    }
+  }
+
+  useEffect(() => {
+    updateObserver()
+
+    return () => {
+      observer.current && observer.current.disconnect()
+    }
+  }, [page])
+
+  useEffect(() => {
+    setChecked(true)
+    setPage(1)
+    handleLocalStorage()
+    updateObserver()
+
+    if (data) {
+      setMatches(data.record)
 
       dispatch(
         home({
@@ -113,7 +126,9 @@ export default function Home() {
       )
     }
 
-    return () => observer && observer.disconnect()
+    return () => {
+      observer.current && observer.current.disconnect()
+    }
   }, [data])
 
   if (isFetching) {
