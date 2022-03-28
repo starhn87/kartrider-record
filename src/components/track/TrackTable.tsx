@@ -3,6 +3,7 @@ import React, {
   memo,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from 'react'
 import styled from '@emotion/styled'
@@ -53,6 +54,8 @@ export default memo(function TrackTable({
   setSort,
 }: TrackTableProps) {
   const [page, setPage] = useState(1)
+  const observer = useRef<IntersectionObserver | null>(null)
+
   const sortedTracks = tracks?.sort((a: ITrackDetail, b: ITrackDetail) => {
     if (sort.seq === 'asc') {
       return a[sort.standard] > b[sort.standard] ? 1 : -1
@@ -84,25 +87,39 @@ export default memo(function TrackTable({
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
     if (entry.isIntersecting) {
-      if (tracks!.length > page * 30) setPage((prev) => prev + 1)
+      if (tracks!.length > page * 30) {
+        setPage((prev) => prev + 1)
+      }
+    }
+  }
+
+  const updateObserver = () => {
+    const footer = document.querySelector('footer')
+
+    if (tracks && footer) {
+      observer.current = new IntersectionObserver(onIntersect, {
+        threshold: 0.9,
+      })
+
+      observer.current.observe(footer)
     }
   }
 
   useEffect(() => {
-    setPage(1)
+    updateObserver()
 
-    const footer = document.querySelector('footer')
-    let observer: IntersectionObserver
-
-    if (tracks && footer) {
-      let observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.9,
-      })
-
-      observer.observe(footer)
+    return () => {
+      observer.current && observer.current.disconnect()
     }
+  }, [page])
 
-    return () => observer && observer.disconnect()
+  useEffect(() => {
+    setPage(1)
+    updateObserver()
+
+    return () => {
+      observer.current && observer.current.disconnect()
+    }
   }, [tracks])
 
   return (
