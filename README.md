@@ -130,8 +130,6 @@ PROJECT PERIOD: 2022.03.21 ~ 2022.03.25
 │   ├── App.tsx
 │   ├── api.ts
 │   ├── assets
-│   │   ├── character
-│   │   │   └── ...
 │   │   ├── kart.json
 │   │   └── track.json
 │   ├── components
