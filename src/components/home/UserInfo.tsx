@@ -4,8 +4,9 @@ import { UserInfoProps } from '../../interface'
 import { gameType, MATCH_TYPE } from '../../redux/slice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { MdPerson, MdPeople } from 'react-icons/md'
+import MatchTypeSwitch from '../MatchTypeSwitch'
 
-const ICONS = [<MdPerson />, <MdPeople />]
+export const ICONS = [<MdPerson />, <MdPeople />]
 
 export default function UserInfo({
   nickname,
@@ -32,20 +33,7 @@ export default function UserInfo({
         <Box>
           <Name>{nickname}</Name>
           <Buttons>
-            <MatchTypeBox>
-              {Object.keys(MATCH_TYPE).map((key, index) => (
-                <MatchType
-                  key={key}
-                  className={`${selected === key ? 'active' : ''}`}
-                  onClick={() => onClick(key as keyof typeof MATCH_TYPE)}
-                >
-                  <ContentBox>
-                    <Icon>{ICONS[index]}</Icon>
-                    {MATCH_TYPE[key as keyof typeof MATCH_TYPE]}
-                  </ContentBox>
-                </MatchType>
-              ))}
-            </MatchTypeBox>
+            <MatchTypeSwitch selected={selected} onClick={onClick} />
             <ActionBox>
               <Refresh onClick={() => refetch()}>전적 갱신</Refresh>
             </ActionBox>
@@ -84,47 +72,6 @@ const Box = styled.div`
 
 const Name = styled.h1`
   font-size: 45px;
-`
-
-const MatchTypeBox = styled.article`
-  display: inline-block;
-  overflow: hidden;
-  margin-right: 15px;
-  margin-top: 20px;
-  padding: 0;
-  border-radius: 5px;
-  border: 1px solid var(--blue);
-`
-
-const MatchType = styled.button`
-  display: inline-block;
-  width: 100px;
-  height: 29px;
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-  font-weight: 400;
-  vertical-align: middle;
-  text-align: center;
-  background-color: transparent;
-  color: var(--blue);
-
-  &.active {
-    background-color: var(--blue);
-    color: white;
-  }
-`
-
-const ContentBox = styled.article`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 1px;
-`
-
-const Icon = styled.div`
-  margin-right: 5px;
-  font-size: 18px;
 `
 
 const Buttons = styled.section`

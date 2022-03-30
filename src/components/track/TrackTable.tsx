@@ -7,22 +7,9 @@ import React, {
   useState,
 } from 'react'
 import styled from '@emotion/styled'
-import { ITrackDetail } from '../../interface'
-import { ISort } from '../../routes/Track'
+import { IHeaders, ISort, ITrackDetail, TrackTableProps } from '../../interface'
 import TrackTableTr from './TrackTableTr'
 import { v4 as uuid } from 'uuid'
-
-interface TrackTableProps {
-  tracks: ITrackDetail[] | undefined
-  totalCount: number | undefined
-  sort: ISort
-  setSort: Dispatch<SetStateAction<ISort>>
-}
-
-interface IHeaders {
-  name: string
-  standard: keyof ITrackDetail
-}
 
 const HEADERS: IHeaders[] = [
   {
@@ -67,12 +54,12 @@ export default memo(function TrackTable({
   const onClick = (standard: keyof ITrackDetail) => {
     if (sort.standard === standard) {
       if (sort.seq === 'asc') {
-        setSort((prev) => ({
+        setSort((prev: ISort) => ({
           ...prev,
           seq: 'desc',
         }))
       } else {
-        setSort((prev) => ({
+        setSort((prev: ISort) => ({
           ...prev,
           seq: 'asc',
         }))
@@ -165,6 +152,7 @@ export default memo(function TrackTable({
       <Tbody>
         {sortedTracks?.slice(0, page * 30).map((track, index) => (
           <TrackTableTr
+            key={uuid()}
             track={track}
             index={index}
             totalCount={totalCount!}

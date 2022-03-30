@@ -1,4 +1,4 @@
-import { MATCH_TYPE } from './components/home/UserInfo'
+import { MATCH_TYPE } from './redux/slice'
 
 export interface IInfo {
   id: string
@@ -89,6 +89,23 @@ export interface ITrackDetail {
   kartId: string
 }
 
+export interface IComment {
+  [key: string]: {
+    comment: string
+    timestamp: number
+  }
+}
+
+export interface IHeaders {
+  name: string
+  standard: keyof ITrackDetail
+}
+
+export interface ISort {
+  standard: keyof ITrackDetail
+  seq: 'asc' | 'desc'
+}
+
 export interface CardProps {
   title: string
   point: string
@@ -134,4 +151,27 @@ export interface UserInfoProps {
 export interface KartRecordProps {
   onKartError: (e: SyntheticEvent<HTMLImageElement>) => void
   onTrackError: (e: SyntheticEvent<HTMLImageElement>) => void
+}
+
+export interface IndicatorGuideProps {
+  onClose: () => void
+}
+
+export interface TrackTableProps {
+  tracks: ITrackDetail[] | undefined
+  totalCount: number | undefined
+  sort: ISort
+  setSort: Dispatch<SetStateAction<ISort>>
+}
+
+export interface TrackTableTrProps {
+  track: ITrackDetail
+  index: number
+  totalCount: number
+  sort: ISort
+}
+
+export interface MatchTypeSwitchProps {
+  selected: keyof typeof MATCH_TYPE
+  onClick: (type: keyof typeof MATCH_TYPE) => void
 }
