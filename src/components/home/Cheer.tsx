@@ -4,13 +4,7 @@ import { addComment, getComments } from '../../firebase'
 import { useAppSelector } from '../../redux/store'
 import { v4 as uuid } from 'uuid'
 import { MdCircle } from 'react-icons/md'
-
-interface IComment {
-  [key: string]: {
-    comment: string
-    timestamp: number
-  }
-}
+import { IComment } from '../../interface'
 
 export default function Cheer() {
   const username = useAppSelector((state) => state.user.nickname)

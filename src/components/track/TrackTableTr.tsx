@@ -1,16 +1,8 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
-import { ITrackDetail } from '../../interface'
-import { ISort } from '../../routes/Track'
+import { TrackTableTrProps } from '../../interface'
 import { formatTime, onError } from '../../util'
 import { v4 as uuid } from 'uuid'
-
-interface TrackTableTrProps {
-  track: ITrackDetail
-  index: number
-  totalCount: number
-  sort: ISort
-}
 
 export default memo(function TrackTableTr({
   track,

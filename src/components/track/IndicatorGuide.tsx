@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-
-interface IndicatorGuideProps {
-  onClose: () => void
-}
+import { IndicatorGuideProps } from '../../interface'
 
 export default function IndicatorGuide({ onClose }: IndicatorGuideProps) {
   const [mounted, setMounted] = useState(false)
