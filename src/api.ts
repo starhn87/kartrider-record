@@ -265,6 +265,14 @@ export const matchApi = {
             },
           })
 
+          const name = TrackInfo.find(
+            (track) => track.id === data.trackId,
+          )!.name
+
+          if (!name) {
+            return
+          }
+
           const players = data.players
             ? data.players
             : data.teams.reduce((prev: IPlayer[], { players }: ITeam) => {
@@ -284,7 +292,7 @@ export const matchApi = {
             info = trackMap.get(data.trackId)
           } else {
             info = {
-              name: TrackInfo.find((track) => track.id === data.trackId)!.name,
+              name,
               count: 0,
               retireCount: 0,
               bestRecord: Number.MAX_SAFE_INTEGER,
