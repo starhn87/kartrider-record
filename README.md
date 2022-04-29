@@ -12,7 +12,7 @@ PROJECT PERIOD: 2022.03.21 ~ 2022.03.25
 
 <br>
 
-닉네임 검색시 헤드리강, 동현이댜, 법사케피, bbeesstt 입력을 추천합니다.
+닉네임 검색시 동현이댜, 헤드리강, 법사케피, bbeesstt 입력을 추천합니다.
 
 [배포링크](https://wanted-codestates-nexon.netlify.app/)
 
