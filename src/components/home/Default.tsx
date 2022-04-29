@@ -64,9 +64,10 @@ export default function Default() {
                     {history.map((hist) => (
                       <Item
                         key={uuid()}
-                        onMouseDown={() => {
-                          handleClick(hist)
+                        onMouseDown={(e) => {
+                          e.preventDefault()
                         }}
+                        onClick={() => handleClick(hist)}
                       >
                         <History>{hist}</History>
                       </Item>

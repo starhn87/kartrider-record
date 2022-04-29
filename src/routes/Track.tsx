@@ -5,24 +5,21 @@ import { matchApi } from '../api'
 import Loading from '../components/common/Loading'
 import { PageWrapper } from './Home'
 import TrackTable from '../components/track/TrackTable'
-import { ITrackDetail } from '../interface'
+import { ISort, ITrackDetail } from '../interface'
 import IndicatorGuide from '../components/track/IndicatorGuide'
 import HelmetWrapper from '../components/common/Helmet'
-import { useAppDispatch } from '../redux/store'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 import { useNavigate } from 'react-router-dom'
-import { reset } from '../redux/slice'
-
-export interface ISort {
-  standard: keyof ITrackDetail
-  seq: 'asc' | 'desc'
-}
+import { gameType, MATCH_TYPE, reset } from '../redux/slice'
+import MatchTypeSwitch from '../components/MatchTypeSwitch'
 
 export default function Track() {
+  const matchType = useAppSelector((state) => state.user.gameType)
   const dispatch = useAppDispatch()
   const navigator = useNavigate()
-  const { data, isFetching, isError } = useQuery(
-    ['all'],
-    () => matchApi.all(),
+  const { data, isFetching } = useQuery(
+    [matchType],
+    () => matchApi.all(matchType),
     {
       staleTime: 60 * 1000,
       retry: false,
@@ -38,23 +35,13 @@ export default function Track() {
   )
   const [value, setValue] = useState('')
   const [guide, setGuide] = useState(false)
+  const [selected, setSelected] = useState<keyof typeof MATCH_TYPE>(
+    '7b9f0fd5377c38514dbb78ebe63ac6c3b81009d5a31dd569d1cff8f005aa881a',
+  )
   const [sort, setSort] = useState<ISort>({
     standard: 'count',
     seq: 'desc',
   })
-
-  useEffect(() => {
-    setTracks(data?.tracks)
-  }, [data])
-
-  if (isFetching || !data) {
-    return (
-      <PageWrapper>
-        <HelmetWrapper content="트랙 | TMI" />
-        <Loading />
-      </PageWrapper>
-    )
-  }
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -70,11 +57,35 @@ export default function Track() {
     setTracks(filteredTracks)
   }
 
+  const onClick = (key: keyof typeof MATCH_TYPE) => {
+    setSelected(key)
+    dispatch(gameType(key))
+  }
+
+  useEffect(() => {
+    setTracks(data?.tracks)
+  }, [data])
+
+  if (isFetching || !data) {
+    return (
+      <PageWrapper>
+        <HelmetWrapper content="트랙 | TMI" />
+        <Loading />
+      </PageWrapper>
+    )
+  }
+
   return (
     <Wrapper>
       <HelmetWrapper content="트랙 | TMI" />
-      <Title>스피드개인전 트랙 순위</Title>
+      <Title>
+        스피드 {matchType === Object.keys(MATCH_TYPE)[0] ? '개인전' : '팀전'}{' '}
+        트랙 순위
+      </Title>
       <Line />
+      <SwitchWrapper>
+        <MatchTypeSwitch selected={selected} onClick={onClick} />
+      </SwitchWrapper>
       <SubTitle>
         <span>순위 산정기간:</span>
         현재 날짜 기준
@@ -119,7 +130,7 @@ const Title = styled.h1`
 `
 
 const Line = styled.article`
-  display: inline-block;
+  /* display: inline-block; */
   width: 35px;
   height: 3px;
   margin-left: 10px;
@@ -187,4 +198,8 @@ const Search = styled.input`
   font-size: 14px;
   outline: none;
   border: 1px sßolid #ccc;
+`
+
+const SwitchWrapper = styled.div`
+  padding: 0 0 10px 10px;
 `

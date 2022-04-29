@@ -14,6 +14,11 @@ import TrackInfo from './assets/track.json'
 import KartInfo from './assets/kart.json'
 import { formatTime, subDate } from './util'
 
+interface ITeam {
+  players: IPlayer[]
+  teamId: string
+}
+
 const api = axios.create({
   baseURL: '/api',
   headers: {
@@ -226,14 +231,14 @@ export const searchApi = {
 }
 
 export const matchApi = {
-  all: async () => {
+  all: async (matchType: keyof typeof MATCH_TYPE) => {
     const {
       data: { matches: matches1 },
     } = await api.get('/matches/all', {
       params: {
         offset: 0,
         limit: 200,
-        match_types: Object.keys(MATCH_TYPE)[0],
+        match_types: matchType,
       },
     })
 
@@ -243,7 +248,7 @@ export const matchApi = {
       params: {
         offset: 200,
         limit: 200,
-        match_types: Object.keys(MATCH_TYPE)[0],
+        match_types: matchType,
       },
     })
 
@@ -254,8 +259,31 @@ export const matchApi = {
       [...matches1[0].matches, ...matches2[0].matches]
         // .slice(0, 10)
         .map(async (matchId: string) => {
-          const { data } = await api.get(`/matches/${matchId}`)
+          const { data } = await api.get(`/matches/${matchId}`, {
+            params: {
+              match_types: matchType,
+            },
+          })
+
+          const name = TrackInfo.find(
+            (track) => track.id === data.trackId,
+          )!.name
+
+          if (!name) {
+            return
+          }
+
           const players = data.players
+            ? data.players
+            : data.teams.reduce((prev: IPlayer[], { players }: ITeam) => {
+                if (players && players.length > 0) {
+                  return [...prev, ...players]
+                } else {
+                  return prev
+                }
+              }, [])
+
+          // const players = data.players
           let info: ITrackDetail | undefined
 
           totalCount += players.length
@@ -264,7 +292,7 @@ export const matchApi = {
             info = trackMap.get(data.trackId)
           } else {
             info = {
-              name: TrackInfo.find((track) => track.id === data.trackId)!.name,
+              name,
               count: 0,
               retireCount: 0,
               bestRecord: Number.MAX_SAFE_INTEGER,
