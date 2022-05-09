@@ -20,7 +20,7 @@ const Ring = styled.div`
   border: 1rem solid #23a2f7;
   border-radius: 50%;
   text-align: center;
-  line-height: 13.5rem;
+  line-height: 13rem;
   font-size: 2rem;
   font-weight: 1000;
   color: #23a2f7;
