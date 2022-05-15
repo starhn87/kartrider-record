@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import React, { ChangeEvent, SyntheticEvent, useRef, useState } from 'react'
+import styled from '@emotion/styled'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { MdSearch } from 'react-icons/md'
 import { nickname } from '../redux/slice'

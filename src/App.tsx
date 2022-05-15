@@ -1,12 +1,11 @@
 import React, { Suspense } from 'react'
 import Layout from './components/common/Layout'
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
-import Header from './components/common/Header'
-import Home from './routes/Home'
-import Ranking from './routes/Ranking'
+import Home from './pages/Home'
+import Ranking from './pages/Ranking'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import Kart from './routes/Kart'
-import Track from './routes/Track'
+import Kart from './pages/Kart'
+import Track from './pages/Track'
 
 function App() {
   const queryClient = new QueryClient({
