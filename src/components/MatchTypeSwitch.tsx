@@ -1,8 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
-import { gameType, MATCH_TYPE } from '../redux/slice'
+import { MATCH_TYPE } from '../redux/slice'
 import { ICONS } from './home/UserInfo'
-import { useAppDispatch } from '../redux/store'
 import { MatchTypeSwitchProps } from '../interface'
 
 export default function MatchTypeSwitch({

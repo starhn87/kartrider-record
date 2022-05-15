@@ -1,11 +1,4 @@
-import React, {
-  Dispatch,
-  memo,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import styled from '@emotion/styled'
 import { IHeaders, ISort, ITrackDetail, TrackTableProps } from '../../interface'
 import TrackTableTr from './TrackTableTr'

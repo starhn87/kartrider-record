@@ -257,7 +257,7 @@ export const matchApi = {
 
     await Promise.all(
       [...matches1[0].matches, ...matches2[0].matches]
-        // .slice(0, 10)
+        // .slice(0, 50)
         .map(async (matchId: string) => {
           const { data } = await api.get(`/matches/${matchId}`, {
             params: {
@@ -317,7 +317,9 @@ export const matchApi = {
             }
           })
 
-          trackMap.set(data.trackId, info!)
+          if (info!.bestRecord !== Number.MAX_SAFE_INTEGER) {
+            trackMap.set(data.trackId, info!)
+          }
         }),
     )
 
