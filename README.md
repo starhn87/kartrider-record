@@ -6,7 +6,7 @@
 
 #### 닉네임 검색시 러너김유신, 핑튀어요, 따로가니, 더달려쌩달려 입력을 추천합니다.
 
-[배포링크](https://wanted-codestates-nexon.netlify.app/)
+[배포링크](https://kartrider-record.netlify.app/)
 
 <br>
 
