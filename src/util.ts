@@ -3,8 +3,8 @@ import { SyntheticEvent } from 'react'
 
 export function formatTime(millisec: number) {
   const min = Math.floor(millisec / 1000 / 60)
-  const sec = Math.floor((millisec / 1000) % 60) / 1
-  const milli = Math.round((((millisec / 1000) % 60) % 1) * 100)
+  const sec = Math.floor((millisec / 1000) % 60)
+  const milli = Math.round((((millisec / 1000) % 60) * 100) / 100)
 
   return `${min}'${sec}'${milli}`
 }
